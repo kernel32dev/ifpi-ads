@@ -6,31 +6,54 @@
 #include "io_utils.h"
 #include "vec_int.h"
 
+// o #include literalmente copia o código em outro arquivo e cola neste arquivo
+// arquivos ".h" não são compilados, são incluidos em arquivos ".c" e apenas estes são compilados
+
+// declaramos a função exemplo_vetores
+// para dizer ao compilador que vamos definir ela depois
 static void exemplo_vetores(void);
 
+// a função main, aqui é onde o programa começa
 int main(int argc, char *argv[]) {
+    // um loop infinito, sai apenas quando encontra break
     while (1) {
+        // essa função é declarada no arquivo io_utils.h, que foi incluido na linha 6
+        // é assim que podemos chamar essa função
         clear_terminal();
+        // printf é declarada no arquivo stdio.h que foi incluido na linha 4
+        // esse é um arquivo da linguagem c
         printf(
             "1: exemplo de vetores\n"
             "0: sair\n"
         );
+        // scan_int foi declarado em stdio.h
         int numero = scan_int("MENU", 0, 1);
+        // se numero for 0, sai do loop
         if (numero == 0)
             break;
         switch (numero)
         {
         case 1:
+            // aqui nós usamos a função, se não tivessemos declarado ela acima
+            // o compilador não saberia que ela existe
+            // (o compilador não consegue ver funções que ele ainda não compilou,
+            // ele lê o código fonte de cima para baixo)
             exemplo_vetores();
+            // esse break, não sai do while, sai do switch
+            // vai entender
             break;
         }
     }
 }
 
+// essa função não é necessária fora desse arquivo, portanto declaramos ela com static
 static void exemplo_vetores(void) {
 
+    // aqui declaramos uma instância de um struct
+    // o struct foi declarado na função vec_int.h
     struct VecInt vector;
 
+    // todas as funções que começam com vec_int foram declarado na função vec_int.h
     vec_int_init(&vector);
 
     while (1) {
@@ -63,6 +86,7 @@ static void exemplo_vetores(void) {
             break;
         case 2: // push
             {
+                // as constantes INT_MIN e INT_MAX foram declaradas no arquivo limits.h
                 int valor = scan_int("Valor: ", INT_MIN, INT_MAX);
                 vec_int_push(&vector, valor);
                 printf("O valor %i foi adicionado ao fim\n", valor);
