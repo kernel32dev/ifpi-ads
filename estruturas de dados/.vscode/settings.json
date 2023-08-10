@@ -1,8 +1,7 @@
 {
     "files.associations": {
-        "vec_int.h": "c",
-        "string.h": "c",
-        "stdint.h": "c",
-        "stddef.h": "c"
+        "*.h": "c",
+        "istream": "cpp",
+        "iostream": "cpp"
     }
 }

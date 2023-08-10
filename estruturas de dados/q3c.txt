@@ -1,0 +1,2 @@
+as implementações são completamente diferentes
+eles fazem as mesmas coisas mas cada passo é implementado de forma diferente
