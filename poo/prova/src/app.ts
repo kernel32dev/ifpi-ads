@@ -1,12 +1,19 @@
-import { getMessage } from './lib';
-import prompt_sync from "prompt-sync";
+import { RedeSocial } from "./rede_social";
 
-const prompt = prompt_sync();
+class App {
+    private _rede_social: RedeSocial;
+    constructor() {
+        this._rede_social = new RedeSocial();
+    }
 
-let text: string = getMessage();
-console.log(text);
+    executar() {
+        console.log(JSON.stringify(this));
+    }
 
-let input: string = prompt(">>> ");
-console.log(input);
+    static main() {
+        let app = new App;
+        app.executar();
+    }
+}
 
-
+App.main();
