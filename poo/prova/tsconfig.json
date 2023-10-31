@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ES2018", // Target ECMAScript version
+        "module": "CommonJS", // Module system (CommonJS is common for Node.js)
+        "sourceMap": true, // Generate source maps for debugging
+        "outDir": "./dist", // Output directory for compiled files
+        "esModuleInterop": true
+    },
+    "include": [
+        "src/*.ts"
+    ], // Include all TypeScript files in the current directory and subdirectories
+    "exclude": [
+        "node_modules"
+    ] // Exclude files in the node_modules directory
+}
