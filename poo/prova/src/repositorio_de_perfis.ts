@@ -7,6 +7,9 @@ export class RepositorioDePerfis {
     incluir(perfil: Perfil) {
         this._perfis.push(perfil);
     }
+    listar(): Perfil[] {
+        return this._perfis;
+    }
     consultar({id, nome, email}: {
         id?: number | null,
         nome?: string | null,

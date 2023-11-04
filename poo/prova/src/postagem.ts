@@ -20,6 +20,7 @@ export class Postagem {
         this._curtidas = curtidas;
         this._descurtidas = descurtidas;
         this._perfil = perfil;
+        perfil.pushPostagem(this);
     }
 
     getId(): number { return this._id; }

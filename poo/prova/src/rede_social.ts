@@ -95,6 +95,13 @@ export class RedeSocial {
         arr.sort((a, b) => b.count - a.count);
         return arr;
     }
+    exibirPerfisPopulares(): Perfil[] {
+        let arr = this._perfis.listar().map(perfil => ({
+            perfil, karma: perfil.getPostagens().filter(x => x.ehVisivel()).reduce((acc, x) => acc + x.getCurtidas() - x.getDescurtidas(), 0),
+        }));
+        arr.sort((a, b) => b.karma - a.karma);
+        return arr.map(x => x.perfil);
+    }
 
     serializarParaJson(): any {
         return {

@@ -18,6 +18,10 @@ export class Perfil {
     getEmail(): string { return this._email; }
     getPostagens(): Postagem[] { return this._postagens; }
 
+    pushPostagem(postagem: Postagem) {
+        this._postagens.push(postagem);
+    }
+
     serializarParaJson(): any {
         return {
             id: this._id,

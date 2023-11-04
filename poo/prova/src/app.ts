@@ -17,8 +17,9 @@ REDE SOCIAL
 5 - visualizar postagens de um hashtag
 6 - visualizar postagens populares
 7 - visualizar hashtags populares
+8 - visualizar perfis populares
 `;
-const MENU_NUM = 7;
+const MENU_NUM = 8;
 
 class App {
     private _rede_social: RedeSocial;
@@ -43,6 +44,7 @@ class App {
                 case 5: this.visualizarPostagensHashtag(); break;
                 case 6: this.visualizarPostagensPopulares(); break;
                 case 7: this.visualizarHashtagsPopulares(); break;
+                case 8: this.visualizarPerfisPopulares(); break;
             }
         }
     }
@@ -128,6 +130,13 @@ class App {
     }
 
     visualizarPostagens(postagens: Postagem[]) {
+        if (postagens.length == 0) {
+            console.clear();
+            console.log("\nNenhuma postagem encontrada\n");
+            askEnter();
+            console.clear();
+            return;
+        }
         for (let i = 0; i < postagens.length; i++) {
             let post = postagens[i];
             console.clear();
@@ -183,6 +192,21 @@ class App {
         }
         let hashtag = hashtags[index - 1].hashtag;
         let postagens = this._rede_social.exibirPostagensPorHashtag(hashtag);
+        this.visualizarPostagens(postagens);
+    }
+
+    visualizarPerfisPopulares() {
+        console.log();
+        let perfis = this._rede_social.exibirPerfisPopulares();
+        perfis.forEach((perfil, index) => {
+            console.log(`${index + 1}º #${perfil.getNome()}`);
+        });
+        console.log();
+        let index = askIntOpt("Ver postagens do perfil na posição Nº: ", perfis.length, 1);
+        if (index == 0 || index == null) {
+            return;
+        }
+        let postagens = this._rede_social.exibirPostagensPorPerfil(perfis[index - 1].getId());
         this.visualizarPostagens(postagens);
     }
 
