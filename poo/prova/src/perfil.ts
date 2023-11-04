@@ -17,4 +17,26 @@ export class Perfil {
     getNome(): string { return this._nome; }
     getEmail(): string { return this._email; }
     getPostagens(): Postagem[] { return this._postagens; }
+
+    serializarParaJson(): any {
+        return {
+            id: this._id,
+            nome: this._nome,
+            email: this._email,
+        };
+    }
+    static deserializarDeJson(json: any): Perfil {
+        if (typeof json.id !== "number" || !Number.isSafeInteger(json.id) || json.id <= 0)
+            throw new Error("Deserialization Error");
+
+        if (typeof json.nome !== "string" || json.nome.length == 0)
+            throw new Error("Deserialization Error");
+
+        if (typeof json.email !== "string" || json.email.length == 0)
+            throw new Error("Deserialization Error");
+
+        return new Perfil(
+            json.id, json.nome, json.email, []
+        );
+    }
 }

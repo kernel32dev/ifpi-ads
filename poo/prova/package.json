@@ -3,6 +3,7 @@
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
+    "@types/node": "^20.8.10",
     "@types/prompt-sync": "^4.2.2"
   },
   "scripts": {
