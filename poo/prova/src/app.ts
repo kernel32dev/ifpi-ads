@@ -19,8 +19,9 @@ REDE SOCIAL
 6 - visualizar postagens populares
 7 - visualizar hashtags populares
 8 - visualizar perfis populares
+9 - gerar perfil aleatório
 `;
-const MENU_NUM = 8;
+const MENU_NUM = 9;
 
 class App {
     private _rede_social: RedeSocial;
@@ -46,6 +47,7 @@ class App {
                 case 6: this.visualizarPostagensPopulares(); break;
                 case 7: this.visualizarHashtagsPopulares(); break;
                 case 8: this.visualizarPerfisPopulares(); break;
+                case 9: this.gerarPerfilAleatorio(); break;
             }
         }
     }
@@ -243,6 +245,71 @@ class App {
         }
         let postagens = this._rede_social.exibirPostagensPorPerfil(perfis[index - 1].getId());
         this.visualizarPostagens(postagens);
+    }
+
+    gerarPerfilAleatorio() {
+        const NOMES = ["geraldo", "fabio", "cristina", "cleiton", "marlene", "napoleon", "cleberson", "sanatiel", "augusto", "rafael", "rodrigo", "sheila", "carminha", "clotildes"];
+        const RESPOSTAS = [
+            "fake news",
+            "discordo",
+            "falso, leia um livro por favor",
+            "sinceramente, discordo",
+            "você faz parte do problema",
+            "tú é acéfalo",
+            "você cometeu um erro de gramática, por tanto está errado o que tu disse",
+            "é obvio que isso não é verdade, tu nunca foi na escola?",
+            "isso é ofensivo d+, preciso te lembrar de não dizer esse tipo de coisa?",
+            "lembrete para todos que você não deve escutar esse cara",
+            "não sabe do que está falando",
+            "eu sou professor de universidade, e acho isso ridículo",
+            "eu e sua mãe conversamos ontem a noite na cama e estamos desapontados com o que você disse, seu pai e a namorada dele concordam também",
+        ];
+        const POSTS = [
+            "PHP é bom",
+            "PHP é ruim",
+            "JS é bom",
+            "JS é ruim",
+            "GIT é chato demais",
+            "GIT é bem fácil",
+            "Quem não usa vim é analfabeto",
+            "Não vale a pena aprender a usar vim",
+            "Python é uma ferramenta ótima para certas tarefas e não para outras",
+            "Exercício é fundamental para uma boa saúde",
+            "Calistenia é para os fracos",
+            "Calistenia é bem top",
+            "Todo mundo aqui fica discordando de todo mundo!",
+            "Oppenheimer é melhor que Barbie",
+            "Barbie é melhor que Oppenheimer",
+            "Imposto é roubo",
+            "Todo problema do Brasil é por causa da falta do estado",
+        ];
+        let nome_index;
+        do {
+            nome_index = Math.floor(Math.random() * NOMES.length);
+        } while (this._rede_social.consultarPerfil({nome: NOMES[nome_index]}) != null);
+        let id = this._rede_social.gerarIdPerfil();
+        let nome = NOMES[nome_index];
+        let email = nome + "@random.com";
+        let perfil = new Perfil(id, nome, email, null, []);
+        this._rede_social.incluirPerfil(perfil);
+        let num_postagens = 5 + Math.floor(Math.random() * 4);
+        let todas_postagens = this._rede_social.consultarPostagem({visivel: true});
+        for (let i = 0; i < num_postagens; i++) {
+            let id = this._rede_social.gerarIdPostagem();
+            let curtidas = 5 + Math.round((Math.random() - 0.5) * 8);
+            let descurtidas = 5 + Math.round((Math.random() - 0.5) * 8);
+            let texto, responde;
+            if (todas_postagens.length != 0 && Math.random() > 0.5) {
+                responde = todas_postagens[Math.floor(Math.random() * todas_postagens.length)].getId();
+                texto = RESPOSTAS[Math.floor(Math.random() * RESPOSTAS.length)];
+            } else {
+                responde = null;
+                texto = POSTS[Math.floor(Math.random() * POSTS.length)];
+            }
+            this._rede_social.incluirPostagem(new Postagem(id, texto, curtidas, descurtidas, perfil, responde))
+        }
+        console.clear();
+        console.log("O perfil @" + nome + " foi criado")
     }
 
     escolherPerfil(): Perfil | null {
