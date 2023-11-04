@@ -20,17 +20,19 @@ export class PostagemAvancada extends Postagem {
         this._visualizacoesRestantes = visualizacoesRestantes;
     }
 
-    getHashtags(): string[] { return this._hashtags; }
-    getVisualizacoesRestantes(): number { return this._visualizacoesRestantes; }
-
-    adicionarHashtag(hashtag: string) {
+    override getHashtags(): string[] { return this._hashtags; }
+    override getVisualizacoesRestantes(): number { return this._visualizacoesRestantes; }
+    override adicionarHashtag(hashtag: string) {
         this._hashtags.push(hashtag);
     }
-    existeHashtag(hashtag: string): boolean {
+    override decrementarVisualizacoes() {
+        this._visualizacoesRestantes -= 1;
+    }
+    override existeHashtag(hashtag: string): boolean {
         return this._hashtags.indexOf(hashtag) != -1;
     }
-    decrementarVisualizacoes() {
-        this._visualizacoesRestantes -= 1;
+    override ehVisivel(): boolean {
+        return this._visualizacoesRestantes > 0;
     }
 
     serializarParaJson(): any {
@@ -52,7 +54,7 @@ export class PostagemAvancada extends Postagem {
         if (typeof json.id !== "number" || !Number.isSafeInteger(json.id) || json.id <= 0)
             throw new Error("Deserialization Error");
 
-        if (typeof json.nome !== "string" || json.nome.length == 0)
+        if (typeof json.texto !== "string" || json.texto.length == 0)
             throw new Error("Deserialization Error");
 
         if (typeof json.curtidas !== "number" || !Number.isSafeInteger(json.curtidas) || json.curtidas < 0)
@@ -68,16 +70,16 @@ export class PostagemAvancada extends Postagem {
         if (typeof json.hashtags !== "object")
             throw new Error("Deserialization Error");
 
-        if (typeof json.visualizacoesRestantes !== "number" || !Number.isSafeInteger(json.visualizacoesRestantes) || json.visualizacoesRestantes <= 0)
+        if (typeof json.visualizacoesRestantes !== "number" || !Number.isSafeInteger(json.visualizacoesRestantes) || json.visualizacoesRestantes < 0)
             throw new Error("Deserialization Error");
 
-        let perfil = perfis.consultar(json.perfil);
+        let perfil = perfis.consultar({id: json.perfil});
         if (perfil === null)
             throw new Error("Deserialization Error");
 
         return new PostagemAvancada(
             json.id,
-            json.nome,
+            json.texto,
             json.curtidas,
             json.descurtidas,
             perfil,

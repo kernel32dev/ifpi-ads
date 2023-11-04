@@ -10,19 +10,21 @@ export class RepositorioDePostagens {
     incluir(postagem: Postagem) {
         this._postagens.push(postagem);
     }
-    consultar({id, texto, hashtag, perfil, popular}: {
+    consultar({id, texto, hashtag, perfil, popular, visivel}: {
         id?: number | null,
         texto?: string | null,
         hashtag?: string | null,
         perfil?: Perfil | null,
         popular?: boolean | null,
+        visivel?: boolean | null,
     }): Postagem[] {
         return this._postagens.filter(x => (
-            (typeof id == "number" && x.getId() == id) ||
-            (typeof texto == "string" && x.getTexto().indexOf(texto) != -1) ||
-            (typeof hashtag == "string" && x instanceof PostagemAvancada && x.getHashtags().indexOf(hashtag) != -1) ||
-            (typeof perfil == "object" && x.getPerfil() == perfil) ||
-            (typeof popular == "boolean" && x.ehPopular() === popular)
+            (typeof id != "number" || x.getId() == id) &&
+            (typeof texto != "string" || x.getTexto().indexOf(texto) != -1) &&
+            (typeof hashtag != "string" || x.existeHashtag(hashtag)) &&
+            (typeof perfil != "object" || x.getPerfil() == perfil) &&
+            (typeof popular != "boolean" || x.ehPopular() === popular) &&
+            (typeof visivel != "boolean" || x.ehVisivel() === visivel)
         ));
     }
     gerarId(): number {

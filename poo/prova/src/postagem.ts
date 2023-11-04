@@ -38,9 +38,19 @@ export class Postagem {
         return this._curtidas / this._descurtidas > 1.5;
     }
 
+    // funções virtuais
+    getHashtags(): string[] { return []; }
+    getVisualizacoesRestantes(): number { return Infinity; }
+    adicionarHashtag(_: string) {}
+    decrementarVisualizacoes() {}
+    existeHashtag(_: string): boolean { return false; }
+    ehVisivel(): boolean { return true; }
+
     static extrairHashtags(texto: string): string[] {
-        // TODO!
-        return ["TODO!"];
+        return texto.split('#').slice(1).flatMap(x => {
+            const match = x.match(/^[_\w]+/);
+            return (match && match[0]) ? [match[0]] : [];
+        });
     }
 
     serializarParaJson(): any {

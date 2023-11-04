@@ -4,7 +4,8 @@
         "module": "CommonJS", // Module system (CommonJS is common for Node.js)
         "sourceMap": true, // Generate source maps for debugging
         "outDir": "./dist", // Output directory for compiled files
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "strict": true,
     },
     "include": [
         "src/*.ts"

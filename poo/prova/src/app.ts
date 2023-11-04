@@ -12,12 +12,13 @@ REDE SOCIAL
 0 - sair
 1 - criar perfil
 2 - postar
-3 - visualizar postagens (TODO!)
+3 - visualizar postagens
 4 - visualizar postagens de um perfil
 5 - visualizar postagens de um hashtag
 6 - visualizar postagens populares
+7 - visualizar hashtags populares
 `;
-const MENU_NUM = 5;
+const MENU_NUM = 7;
 
 class App {
     private _rede_social: RedeSocial;
@@ -34,15 +35,14 @@ class App {
         while (true) {
             console.log(MENU_TEXTO);
             switch (askInt("MENU: ", MENU_NUM)) {
-                case 0:
-                    this.salvarDados();
-                    return;
+                case 0: this.salvarDados(); return;
                 case 1: this.criarPerfil(); break;
                 case 2: this.criarPostagem(); break;
                 case 3: this.visualizarPostagensTodas(); break;
                 case 4: this.visualizarPostagensPerfil(); break;
                 case 5: this.visualizarPostagensHashtag(); break;
                 case 6: this.visualizarPostagensPopulares(); break;
+                case 7: this.visualizarHashtagsPopulares(); break;
             }
         }
     }
@@ -104,7 +104,8 @@ class App {
     }
 
     visualizarPostagensTodas() {
-        throw new Error("TODO!");
+        let postagens = this._rede_social.exibirPostagens();
+        this.visualizarPostagens(postagens);
     }
 
     visualizarPostagensPerfil() {
@@ -167,6 +168,22 @@ class App {
             }
         }
         console.clear();
+    }
+
+    visualizarHashtagsPopulares() {
+        console.log();
+        let hashtags = this._rede_social.exibirHashtagsPopulares();
+        hashtags.forEach(({count, hashtag}, index) => {
+            console.log(`${index + 1}º #${hashtag} (${count})`);
+        });
+        console.log();
+        let index = askIntOpt("Ver postagens da hashtag na posição Nº: ", hashtags.length, 1);
+        if (index == 0 || index == null) {
+            return;
+        }
+        let hashtag = hashtags[index - 1].hashtag;
+        let postagens = this._rede_social.exibirPostagensPorHashtag(hashtag);
+        this.visualizarPostagens(postagens);
     }
 
     escolherPerfil(): Perfil | null {

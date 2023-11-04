@@ -35,6 +35,7 @@ export class RedeSocial {
         hashtag?: string | null,
         perfil?: Perfil | null,
         popular?: boolean | null,
+        visivel?: boolean | null,
     }): Postagem[] {
         return this._postagens.consultar(filtros);
     }
@@ -52,9 +53,15 @@ export class RedeSocial {
         if (postagem.getVisualizacoesRestantes() > 0)
             postagem.decrementarVisualizacoes();
     }
-    exibirPostagensPorPerfil(id: number): Postagem[] {
-        let perfil = this._perfis.consultar({id});
-        let postagens =  this._postagens.consultar({perfil});
+    exibirPostagens(): Postagem[] {
+        let postagens = this._postagens.consultar({visivel: true});
+        postagens.forEach(x => x.decrementarVisualizacoes());
+        return postagens;
+    }
+    exibirPostagensPorPerfil(idPerfil: number): Postagem[] {
+        let perfil = this._perfis.consultar({id: idPerfil});
+        if (perfil === null) return [];
+        let postagens =  this._postagens.consultar({perfil, visivel: true});
         for (let postagem of postagens) {
             if (postagem instanceof PostagemAvancada) {
                 this.decrementarVisualizacoes(postagem);
@@ -63,12 +70,30 @@ export class RedeSocial {
         return postagens;
     }
     exibirPostagensPorHashtag(hashtag: string): PostagemAvancada[] {
-        return this._postagens.consultar({hashtag})
-            .map(x => x instanceof PostagemAvancada ? x : null)
-            .filter(x => x);
+        let postagens = [];
+        for (let postagem of this._postagens.consultar({hashtag, visivel: true})) {
+            if (postagem instanceof PostagemAvancada) postagens.push(postagem);
+        }
+        postagens.forEach(x => x.decrementarVisualizacoes());
+        return postagens;
     }
     exibirPostagensPopulares(): Postagem[] {
-        return this._postagens.consultar({popular: true});
+        let postagens = this._postagens.consultar({popular: true, visivel: true});
+        postagens.forEach(x => x.decrementarVisualizacoes());
+        return postagens;
+    }
+    exibirHashtagsPopulares(): {count: number, hashtag: string}[] {
+        let map = new Map<string, number>();
+        for (let hashtag of this._postagens.consultar({visivel: true}).flatMap(x => x.getHashtags())) {
+            let count = map.get(hashtag) || 0;
+            map.set(hashtag, count + 1);
+        }
+        let arr = [];
+        for (let [hashtag, count] of map) {
+            arr.push({hashtag, count});
+        }
+        arr.sort((a, b) => b.count - a.count);
+        return arr;
     }
 
     serializarParaJson(): any {
