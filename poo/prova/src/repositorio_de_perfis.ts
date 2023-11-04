@@ -11,15 +11,15 @@ export class RepositorioDePerfis {
         return this._perfis;
     }
     consultar({id, nome, email}: {
-        id?: number | null,
-        nome?: string | null,
-        email?: string | null,
+        id?: number,
+        nome?: string,
+        email?: string,
     }): Perfil | null {
         for (let perfil of this._perfis) {
             if (
-                (typeof id == "number" && perfil.getId() == id) ||
-                (typeof nome == "string" && perfil.getNome() == nome) ||
-                (typeof email == "string" && perfil.getEmail() == email)
+                (id !== undefined && perfil.getId() == id) ||
+                (nome !== undefined && perfil.getNome() == nome) ||
+                (email !== undefined && perfil.getEmail() == email)
             ) return perfil;
         }
         return null;

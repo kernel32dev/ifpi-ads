@@ -12,7 +12,7 @@ const MENU_TEXTO = `
 REDE SOCIAL
 0 - sair
 1 - criar perfil
-2 - postar
+2 - escrever postagem
 3 - visualizar postagens
 4 - visualizar postagens de um perfil
 5 - visualizar postagens de um hashtag
@@ -86,8 +86,8 @@ class App {
         console.log("Perfil criado com sucesso");
     }
 
-    criarPostagem() {
-        console.log("Criando postagem");
+    criarPostagem(responde: number | null = null) {
+        console.log(responde == null ? "Escrever postagem" : "Escrever resposta");
         let perfil = this.escolherPerfil();
         if (perfil == null) {
             console.log("Operação cancelada");
@@ -113,11 +113,11 @@ class App {
         let visualizacoes = askIntOpt("limite: ", 10, 1);
         let id = this._rede_social.gerarIdPostagem();
         if (visualizacoes == null) {
-            this._rede_social.incluirPostagem(new Postagem(id, texto, 0, 0, perfil));
+            this._rede_social.incluirPostagem(new Postagem(id, texto, 0, 0, perfil, responde));
             console.log("Postagem criada");
         } else {
             let hashtags = Postagem.extrairHashtags(texto);
-            this._rede_social.incluirPostagem(new PostagemAvancada(id, texto, 0, 0, perfil, hashtags, visualizacoes));
+            this._rede_social.incluirPostagem(new PostagemAvancada(id, texto, 0, 0, perfil, responde, hashtags, visualizacoes));
             console.log("Postagem criada, hashtags: " + hashtags.join(", "));
         }
     }
@@ -158,22 +158,36 @@ class App {
             let post = postagens[i];
             console.clear();
             console.log(`Postagem ${i + 1} de ${postagens.length}`);
-            console.log();
-            console.log("@" + post.getPerfil().getNome());
-            console.log(post.getTexto());
-            console.log();
-            console.log("curtidas: " + post.getCurtidas());
+            this.visualizarPostagem(post);
+            let responde = post.getResponde();
+            if (responde != null) {
+                let respondido = this._rede_social.consultarPostagem({id: responde});
+                if (respondido.length != 0) {
+                    this.visualizarPostagem(respondido[0], "respondendo: ");
+                }
+            }
+            let respostas = this._rede_social.consultarPostagem({responde: post.getId()});
+            if (respostas.length != 0) {
+                console.log("\nrespostas:");
+                for (let resposta of respostas) {
+                    this.visualizarPostagem(resposta);
+                }
+            }
+            console.log("\ncurtidas: " + post.getCurtidas());
             console.log("descurtidas: " + post.getDescurtidas());
-            console.log("comandos: (c)urtir (d)escurtir (s)air");
+            console.log("comandos: (r)esponder (c)urtir (d)escurtir (s)air");
             if (i + 1 != postagens.length) {
                 console.log("aperte enter para ver para a próxima postagem");
             } else {
                 console.log("aperte enter para sair");
             }
-            console.log();
             while (true) {
+                console.log();
                 let cmd = askStr(">>> ");
                 if (cmd == "") {
+                    break;
+                } else if (cmd == "responder" || cmd == "r") {
+                    this.criarPostagem(post.getId());
                     break;
                 } else if (cmd == "curtir" || cmd == "c") {
                     post.curtir();
@@ -185,7 +199,7 @@ class App {
                     console.log("post descurtido");
                     askEnter();
                     break;
-                } else if (cmd == "sair" || cmd == "s") {
+                } else if (cmd == "sair" || cmd == "s" || cmd == "quit" || cmd == "q") {
                     console.clear();
                     return;
                 }
@@ -194,6 +208,10 @@ class App {
             }
         }
         console.clear();
+    }
+    visualizarPostagem(post: Postagem, caption: string = "") {
+        console.log("\n" + caption + "@" + post.getPerfil().getNome());
+        console.log(" " + post.getTexto().replace(/\n/g, " \n"));
     }
 
     visualizarHashtagsPopulares() {
@@ -233,9 +251,9 @@ class App {
             if (busca.length === 0) {
                 return null;
             }
-            let id: number | null = Number(busca);
+            let id: number | undefined = Number(busca);
             if (!Number.isSafeInteger(id) || id <= 0) {
-                id = null;
+                id = undefined;
             }
             let perfil = this._rede_social.consultarPerfil({id, nome: busca, email: busca});
             if (perfil != null) {

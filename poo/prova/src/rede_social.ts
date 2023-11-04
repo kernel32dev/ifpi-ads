@@ -16,9 +16,9 @@ export class RedeSocial {
         // TODO! validar
     }
     consultarPerfil(filtros: {
-        id?: number | null,
-        nome?: string | null,
-        email?: string | null,
+        id?: number,
+        nome?: string,
+        email?: string,
     }): Perfil | null {
         // TODO! validar
         return this._perfis.consultar(filtros);
@@ -30,12 +30,13 @@ export class RedeSocial {
         this._postagens.incluir(postagem);
     }
     consultarPostagem(filtros: {
-        id?: number | null,
-        texto?: string | null,
-        hashtag?: string | null,
-        perfil?: Perfil | null,
-        popular?: boolean | null,
-        visivel?: boolean | null,
+        id?: number,
+        texto?: string,
+        hashtag?: string,
+        perfil?: Perfil,
+        popular?: boolean,
+        visivel?: boolean,
+        responde?: number | null,
     }): Postagem[] {
         return this._postagens.consultar(filtros);
     }
@@ -54,7 +55,7 @@ export class RedeSocial {
             postagem.decrementarVisualizacoes();
     }
     exibirPostagens(): Postagem[] {
-        let postagens = this._postagens.consultar({visivel: true});
+        let postagens = this._postagens.consultar({visivel: true, responde: null});
         postagens.forEach(x => x.decrementarVisualizacoes());
         return postagens;
     }

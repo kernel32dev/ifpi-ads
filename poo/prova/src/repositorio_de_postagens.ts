@@ -10,21 +10,23 @@ export class RepositorioDePostagens {
     incluir(postagem: Postagem) {
         this._postagens.push(postagem);
     }
-    consultar({id, texto, hashtag, perfil, popular, visivel}: {
-        id?: number | null,
-        texto?: string | null,
-        hashtag?: string | null,
-        perfil?: Perfil | null,
-        popular?: boolean | null,
-        visivel?: boolean | null,
+    consultar({id, texto, hashtag, perfil, popular, visivel, responde}: {
+        id?: number,
+        texto?: string,
+        hashtag?: string,
+        perfil?: Perfil,
+        popular?: boolean,
+        visivel?: boolean,
+        responde?: number | null,
     }): Postagem[] {
         return this._postagens.filter(x => (
-            (typeof id != "number" || x.getId() == id) &&
-            (typeof texto != "string" || x.getTexto().indexOf(texto) != -1) &&
-            (typeof hashtag != "string" || x.existeHashtag(hashtag)) &&
-            (typeof perfil != "object" || x.getPerfil() == perfil) &&
-            (typeof popular != "boolean" || x.ehPopular() === popular) &&
-            (typeof visivel != "boolean" || x.ehVisivel() === visivel)
+            (id === undefined || x.getId() == id) &&
+            (texto === undefined || x.getTexto().indexOf(texto) != -1) &&
+            (hashtag === undefined || x.existeHashtag(hashtag)) &&
+            (perfil === undefined || x.getPerfil() == perfil) &&
+            (popular === undefined || x.ehPopular() == popular) &&
+            (visivel === undefined || x.ehVisivel() == visivel) &&
+            (responde === undefined || x.getResponde() == responde)
         ));
     }
     gerarId(): number {

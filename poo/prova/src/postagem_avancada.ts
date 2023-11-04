@@ -12,10 +12,11 @@ export class PostagemAvancada extends Postagem {
         curtidas: number,
         descurtidas: number,
         perfil: Perfil,
+        responde: number | null,
         hashtags: string[],
         visualizacoesRestantes: number,
     ) {
-        super(id, texto, curtidas, descurtidas, perfil);
+        super(id, texto, curtidas, descurtidas, perfil, responde);
         this._hashtags = hashtags;
         this._visualizacoesRestantes = visualizacoesRestantes;
     }
@@ -66,6 +67,9 @@ export class PostagemAvancada extends Postagem {
         if (typeof json.perfil !== "number" || !Number.isSafeInteger(json.perfil) || json.perfil <= 0)
             throw new Error("Deserialization Error");
 
+        if (json.responde != null && (typeof json.responde !== "number" || !Number.isSafeInteger(json.responde) || json.responde <= 0))
+            throw new Error("Deserialization Error");
+
         // TODO! mais checagens
         if (typeof json.hashtags !== "object")
             throw new Error("Deserialization Error");
@@ -83,6 +87,7 @@ export class PostagemAvancada extends Postagem {
             json.curtidas,
             json.descurtidas,
             perfil,
+            json.responde,
             json.hashtags,
             json.visualizacoesRestantes,
         );

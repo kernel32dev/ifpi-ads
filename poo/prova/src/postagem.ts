@@ -7,6 +7,7 @@ export class Postagem {
     private _curtidas: number;
     private _descurtidas: number;
     private _perfil: Perfil;
+    private _responde: number | null;
 
     constructor(
         id: number,
@@ -14,12 +15,14 @@ export class Postagem {
         curtidas: number,
         descurtidas: number,
         perfil: Perfil,
+        responde: number | null,
     ) {
         this._id = id;
         this._texto = texto;
         this._curtidas = curtidas;
         this._descurtidas = descurtidas;
         this._perfil = perfil;
+        this._responde = responde;
         perfil.pushPostagem(this);
     }
 
@@ -28,6 +31,7 @@ export class Postagem {
     getCurtidas(): number { return this._curtidas; }
     getDescurtidas(): number { return this._descurtidas; }
     getPerfil(): Perfil { return this._perfil; }
+    getResponde(): number | null { return this._responde; }
 
     curtir() {
         this._curtidas += 1;
@@ -62,6 +66,7 @@ export class Postagem {
             curtidas: this._curtidas,
             descurtidas: this._descurtidas,
             perfil: this._perfil.getId(),
+            responde: this._responde,
         };
     }
     static deserializarDeJson(json: any, perfis: RepositorioDePerfis): Postagem {
@@ -83,6 +88,9 @@ export class Postagem {
         if (typeof json.perfil !== "number" || !Number.isSafeInteger(json.perfil) || json.perfil <= 0)
             throw new Error("Deserialization Error");
 
+        if (json.responde != null && (typeof json.responde !== "number" || !Number.isSafeInteger(json.responde) || json.responde <= 0))
+            throw new Error("Deserialization Error");
+
         let perfil = perfis.consultar({id: json.perfil});
         if (perfil === null)
             throw new Error("Deserialization Error");
@@ -93,6 +101,7 @@ export class Postagem {
             json.curtidas,
             json.descurtidas,
             perfil,
+            json.responde,
         );
     }
 }
