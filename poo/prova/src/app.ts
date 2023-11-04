@@ -1,3 +1,4 @@
+import { Auth } from "./auth";
 import { Perfil } from "./perfil";
 import { Postagem } from "./postagem";
 import { PostagemAvancada } from "./postagem_avancada";
@@ -75,8 +76,13 @@ class App {
             console.log("Operação cancelada");
             return;
         }
+        let auth = null;
+        let senha = askStr("senha (opcional): ");
+        if (senha.length != 0) {
+            auth = Auth.gerar(senha);
+        }
         let id = this._rede_social.gerarIdPerfil();
-        this._rede_social.incluirPerfil(new Perfil(id, name, email, []));
+        this._rede_social.incluirPerfil(new Perfil(id, name, email, auth, []));
         console.log("Perfil criado com sucesso");
     }
 
@@ -86,6 +92,17 @@ class App {
         if (perfil == null) {
             console.log("Operação cancelada");
             return;
+        }
+        let auth = perfil.getAuth();
+        if (auth) {
+            let resultado = this.exigirSenha(auth);
+            if (resultado === null) {
+                console.log("Operação cancelada");
+                return;
+            } else if (resultado === false) {
+                console.log("Operação cancelada - credenciais incorretas");
+                return;
+            }
         }
         let texto = askStr("texto: ");
         if (texto.length == 0) {
@@ -226,6 +243,21 @@ class App {
             }
             console.log("Perfil " + busca + " não encontrado");
         }
+    }
+
+    exigirSenha(auth: Auth): boolean | null {
+        for (let i = 0; i < 3; i++) {
+            let senha = askStr("senha: ");
+            if (senha.length == 0) {
+                return null;
+            }
+            if (auth.validar(senha)) {
+                return true;
+            }
+            console.log("senha inválida");
+        }
+        return false;
+
     }
 }
 
