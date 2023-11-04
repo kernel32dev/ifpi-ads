@@ -31,7 +31,7 @@ export class Perfil {
             id: this._id,
             nome: this._nome,
             email: this._email,
-            auth: this._auth?.serializarParaJson()
+            auth: this._auth === null ? null : this._auth.serializarParaJson()
         };
     }
     static deserializarDeJson(json: any): Perfil {
@@ -46,7 +46,7 @@ export class Perfil {
 
         let auth = null;
 
-        if (json.auth != null) {
+        if (json.auth !== null) {
             if (typeof json.auth !== "object")
                 throw new Error("Deserialization Error");
 
