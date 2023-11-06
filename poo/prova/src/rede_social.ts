@@ -12,15 +12,15 @@ export class RedeSocial {
         return this._perfis.gerarId();
     }
     incluirPerfil(perfil: Perfil) {
+        if (this._postagens.consultar({id: perfil.getId()}).length != 0)
+            throw new Error("Id já existe");
         this._perfis.incluir(perfil);
-        // TODO! validar
     }
     consultarPerfil(filtros: {
         id?: number,
         nome?: string,
         email?: string,
     }): Perfil | null {
-        // TODO! validar
         return this._perfis.consultar(filtros);
     }
     gerarIdPostagem(): number {

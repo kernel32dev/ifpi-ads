@@ -70,8 +70,7 @@ export class PostagemAvancada extends Postagem {
         if (json.responde != null && (typeof json.responde !== "number" || !Number.isSafeInteger(json.responde) || json.responde <= 0))
             throw new Error("Deserialization Error");
 
-        // TODO! mais checagens
-        if (typeof json.hashtags !== "object")
+        if (typeof json.hashtags !== "object" && json.hashtags instanceof Array)
             throw new Error("Deserialization Error");
 
         if (typeof json.visualizacoesRestantes !== "number" || !Number.isSafeInteger(json.visualizacoesRestantes) || json.visualizacoesRestantes < 0)

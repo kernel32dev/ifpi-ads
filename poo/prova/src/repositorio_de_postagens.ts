@@ -44,8 +44,7 @@ export class RepositorioDePostagens {
         if (typeof json.genId !== "number" || !Number.isSafeInteger(json.genId) || json.id < 0)
             throw new Error("Deserialization Error");
 
-            // TODO! mais checagens
-        if (typeof json.postagens !== "object")
+        if (typeof json.postagens !== "object" && json.postagens instanceof Array)
             throw new Error("Deserialization Error");
 
         let postagens: Postagem[] = json.postagens.map((x: any) => {
