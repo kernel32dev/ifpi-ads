@@ -10,22 +10,22 @@ using adp.Models;
 
 namespace adp.Controllers
 {
-    public class UsuarioControler : Controller
+    public class UsuarioController : Controller
     {
         private readonly MyDbContext _context;
 
-        public UsuarioControler(MyDbContext context)
+        public UsuarioController(MyDbContext context)
         {
             _context = context;
         }
 
-        // GET: UsuarioControler
+        // GET: UsuarioController
         public async Task<IActionResult> Index()
         {
             return View(await _context.Usuario.ToListAsync());
         }
 
-        // GET: UsuarioControler/Details/5
+        // GET: UsuarioController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,13 +43,13 @@ namespace adp.Controllers
             return View(usuario);
         }
 
-        // GET: UsuarioControler/Create
+        // GET: UsuarioController/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: UsuarioControler/Create
+        // POST: UsuarioController/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,7 +65,7 @@ namespace adp.Controllers
             return View(usuario);
         }
 
-        // GET: UsuarioControler/Edit/5
+        // GET: UsuarioController/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,7 +81,7 @@ namespace adp.Controllers
             return View(usuario);
         }
 
-        // POST: UsuarioControler/Edit/5
+        // POST: UsuarioController/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -116,7 +116,7 @@ namespace adp.Controllers
             return View(usuario);
         }
 
-        // GET: UsuarioControler/Delete/5
+        // GET: UsuarioController/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace adp.Controllers
             return View(usuario);
         }
 
-        // POST: UsuarioControler/Delete/5
+        // POST: UsuarioController/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int? id)
