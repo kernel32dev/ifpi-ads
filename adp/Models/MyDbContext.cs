@@ -9,5 +9,6 @@ public class MyDbContext: DbContext
 
     public DbSet<Usuario>? Usuario { get; set; }
     public DbSet<Pessoa>? Pessoa { get; set; }
-    public DbSet<adp.Models.Professor> Professor { get; set; }
+    public DbSet<Professor> Professor { get; set; }
+    public DbSet<Aluno> Aluno { get; set; }
 }
