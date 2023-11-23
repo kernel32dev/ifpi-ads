@@ -1,0 +1,4 @@
+a saída é
+uma linha contendo "2"
+uma linha contendo "1"
+uma linha contendo "pilha vazia!"

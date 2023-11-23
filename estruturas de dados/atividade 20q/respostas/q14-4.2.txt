@@ -1,0 +1,4 @@
+a saída é três linhas com A, B e C
+A
+B
+C

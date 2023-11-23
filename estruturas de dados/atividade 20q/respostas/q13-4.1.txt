@@ -1,0 +1,14 @@
+Fila F = fila(5);
+// F = []
+enfileira(1, F);
+// F = [1]
+enfileira(2, F);
+// F = [1, 2]
+enfileira(3, F);
+// F = [1, 2, 3]
+enfileira(desenfileira(F), F);
+// F = [2, 3, 1]
+enfileira(desenfileira(F), F);
+// F = [3, 1, 2]
+printf("%d\n", desenfileira(F));
+// saída == 3

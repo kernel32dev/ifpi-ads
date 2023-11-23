@@ -1,0 +1,8 @@
+a saída é
+vários números float bem pequenos (geralmente são arrendodados para zero), que vão dobrando até chegar a 8
+
+o programa acresenta a sequencia de numeros que começa com 8 e vai dividindo por 2 até chegar a 0
+se float tivesse precisão infinita o loop nunca acabaria, mas eventualmente fica tão pequeno que o número é arrendodado para 0, sem casas decimais e o loop acaba
+
+então o programa printa os números do menor até o 8
+
