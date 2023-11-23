@@ -20,8 +20,21 @@ int main() {
     std::cout << std::endl;
 }
 
+void pd(const Pilha<1024>& input) {
+	std::cout << "[" << input.len << "] ";
+	for (size_t i = 0; i < input.len; i++) {
+		std::cout << input.data[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
 void q7(Pilha<1024>& input, Pilha<1024>& output) {
     while (!input.pilhaVazia()) {
+		std::cout << "i: ";
+		pd(input);
+		std::cout << "o: ";
+		pd(output);
+		std::cout << std::endl;
         int temp = input.desempilhar();
         while (!output.pilhaVazia() && output.topo() > temp) {
             input.empilhar(output.desempilhar());
