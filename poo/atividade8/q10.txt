@@ -1,0 +1,7 @@
+10) Crie uma exceção chamada ValorInvalidoError que herda de AplicacaoException e
+altere a classe Conta para que ao receber um crédito/depósito, caso o valor seja
+menor ou igual a zero, seja lançada a exceção ValorInvalidoError. Altere também o
+construtor da classe Conta para que o saldo inicial seja atribuído utilizando o
+método depositar.
+
+3 ifs com checks adicionados

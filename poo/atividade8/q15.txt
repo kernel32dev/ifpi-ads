@@ -1,0 +1,4 @@
+15) Crie exceções relacionadas a valores obtidos da entrada de dados que não sejam
+aceitáveis, como valores vazios, números inválidos etc. Na aplicação, trate todas
+as entradas de dados para que, caso o usuário infrinja regras de preenchimento, o
+sistema lance e trate as exceções e informe que a entrada foi inválida.

@@ -1,0 +1,5 @@
+9) Altere os métodos alterar, depositar, sacar, transferir, renderJuros removendo os
+“ifs/elses”, pois caso haja exceção no método consultar, os respectivos códigos
+não serão mais necessários.
+
+ifs e elses removidos de banco.ts

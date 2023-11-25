@@ -1,0 +1,10 @@
+5) Instancie uma classe banco e crie duas contas. Adicione-as à instancia do banco.
+Chame o método transferir novamente passando um valor que lance a exceção na
+classe conta. Você considera que o lançamento da exceção foi “propagado” para o
+método conta.transferir(), banco.transferir() e o método transferir do script app?
+Como você avalia a confiabilidade dessa implementação.
+
+eu não considero que foi propagado, evidentemente foi propagado
+
+depende da definição de confiabilidade
+certamente protegeu corretamente a validade dos dados, impediu com sucesso que o valor ficasse inválido (negativo)

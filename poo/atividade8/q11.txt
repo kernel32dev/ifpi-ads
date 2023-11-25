@@ -1,0 +1,9 @@
+11) Você percebeu que o código que valida se o valor é menor ou igual a zero se
+repete nos métodos sacar e depositar? Refatore o código criando um método
+privado chamado validarValor onde um valor é passado como parâmetro e caso o
+mesmo seja menor ou igual a zero, seja lançada uma exceção. Altere também os
+métodos sacar e depositar para chamar esse método de validação em vez de cada
+um lançar a sua própria exceção, evitando assim a duplicação de código.
+
+3 ifs foram removidos, e agora as mensagens de erro de SaldoInsuficienteError
+são genericas e não corretamente descrevem o que era negativo

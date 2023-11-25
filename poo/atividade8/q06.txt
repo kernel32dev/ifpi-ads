@@ -1,0 +1,6 @@
+6) Lance um erro no construtor e nos métodos sacar e depositar para que, caso o
+valor passado seja menor que zero uma exceção seja lançada. Reexecute os
+testes da questão anterior com valores que “passem” pelo saldo insuficiente, e
+teste também a chamada dos métodos passando como parâmetro valores < 0.
+
+erros foram emitidos em situações que causariam saldos inválidos

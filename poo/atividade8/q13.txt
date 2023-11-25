@@ -1,0 +1,4 @@
+13) Crie uma validação para não cadastrar mais de uma conta com o mesmo número.
+Para isso, chame o método consultar no método inserir da classe banco. Apenas
+se a exceção do método consultar for lançada, você deve incluir a conta. Para
+isso, consulte a conta dentro de um try e o faça a inclusão no catch

@@ -1,0 +1,5 @@
+8) Implemente na classe Banco os métodos consultar e consultarPorIndice para que,
+caso a conta procurada não seja encontrada, a exceção ContaInexistente seja
+lançada.
+
+funções de banco atualizadas

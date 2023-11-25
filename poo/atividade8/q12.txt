@@ -1,0 +1,3 @@
+12) Crie uma exceção chamada PoupancaInvalidaError que herda de AplicacaoError.
+Altere então o método render juros da classe Banco para que caso a conta não
+seja uma poupança, a exceção criada seja lançada.

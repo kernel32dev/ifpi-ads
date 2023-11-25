@@ -1,0 +1,5 @@
+7) Crie as classes AplicacaoError descendente de Error. Crie também classes
+ContaInexistenteError e SaldoInsuficienteError. Todas decendentes da classe
+AplicacaoError.
+
+criadas no arquivo erro.ts

@@ -1,0 +1,9 @@
+3) Implemente como nos slides o lançamento da exceção no método sacar e realize
+um teste para saques que deixariam o saldo negativo.
+
+código ajustado na pasta q3
+ajustes:
+q3/conta.ts:18
+q3/conta.ts:34
+
+ao executar o saque inválido, o programa foi abortado com a mensagem de erro especificada
