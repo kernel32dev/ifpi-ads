@@ -5,6 +5,7 @@
 
 void q9a(const std::string& input, std::string& output);
 int q9b(const std::string& expr);
+int prio(char);
 
 int main() {
     std::string input, output;
@@ -18,12 +19,18 @@ void q9a(const std::string& input, std::string& output) {
     Pilha<1024> pilha;
     for (char i : input) {
         if (i == '(') {
-            // ignora
+            pilha.empilhar('(');
         } else if (i == ')') {
-            output += (char)pilha.desempilhar();
-        } else if (i == '+' || i == '-' || i == '*' || i == '/' || i == '\\') {
-            output += ' ';
-            pilha.empilhar((char)i);
+            while (true) {
+                char topo = (char)pilha.desempilhar();
+                if (topo != '(') break;
+                output += topo;
+            }
+        } else if (i == '+' || i == '-' || i == '*' || i == '/') {
+            while (!pilha.pilhaVazia() && prio(pilha.topo()) > prio(i)) {
+                output += (char)pilha.desempilhar();
+            }
+            pilha.empilhar((int)i);
         } else {
             output += i;
         }
@@ -34,20 +41,11 @@ void q9a(const std::string& input, std::string& output) {
 }
 int q9b(const std::string& expr) {
     Pilha<1024> pilha;
-    bool inint = false;
     for (char i : expr) {
         if (i >= '0' && i <= '9') {
-            if (inint) {
-                int topo = pilha.desempilhar();
-                topo = topo * 10 + (i - '0');
-                pilha.empilhar(topo);
-            } else {
-                inint = true;
-                pilha.empilhar(i - '0');
-            }
+            pilha.empilhar(i - '0');
             continue;
         }
-        inint = false;
         int a, b;
         switch (i)
         {
@@ -67,7 +65,6 @@ int q9b(const std::string& expr) {
             pilha.empilhar(a * b);
             break;
         case '/':
-        case '\\':
             a = pilha.desempilhar();
             b = pilha.desempilhar();
             pilha.empilhar(a / b);
@@ -75,4 +72,15 @@ int q9b(const std::string& expr) {
         }
     }
     return pilha.desempilhar();
+}
+
+int prio(char val) {
+    switch (val) {
+        case '(': return 0;
+        case '+':
+        case '-': return 1;
+        case '*':
+        case '/': return 2;
+    }
+    return -1;
 }

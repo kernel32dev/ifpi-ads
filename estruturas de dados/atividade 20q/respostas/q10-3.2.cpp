@@ -5,6 +5,7 @@
 
 void q10a(const std::string& input, std::string& output);
 int q10b(const std::string& expr);
+int prio(char);
 
 int main() {
     std::string input, output;
@@ -18,12 +19,19 @@ void q10a(const std::string& input, std::string& output) {
     Pilha<1024> pilha;
     for (char i : input) {
         if (i == '(') {
-            // ignora
+            pilha.empilhar('(');
         } else if (i == ')') {
-            output += (char)pilha.desempilhar();
-        } else if (i == '+' || i == '-' || i == '*' || i == '/' || i == '\\') {
+            while (true) {
+                char topo = (char)pilha.desempilhar();
+                if (topo != '(') break;
+                output += topo;
+            }
+        } else if (i == '+' || i == '-' || i == '*' || i == '/') {
+            while (!pilha.pilhaVazia() && prio(pilha.topo()) > prio(i)) {
+                output += (char)pilha.desempilhar();
+            }
             output += ' ';
-            pilha.empilhar((char)i);
+            pilha.empilhar((int)i);
         } else {
             output += i;
         }
@@ -67,7 +75,6 @@ int q10b(const std::string& expr) {
             pilha.empilhar(a * b);
             break;
         case '/':
-        case '\\':
             a = pilha.desempilhar();
             b = pilha.desempilhar();
             pilha.empilhar(a / b);
@@ -75,4 +82,15 @@ int q10b(const std::string& expr) {
         }
     }
     return pilha.desempilhar();
+}
+
+int prio(char val) {
+    switch (val) {
+        case '(': return 0;
+        case '+':
+        case '-': return 1;
+        case '*':
+        case '/': return 2;
+    }
+    return -1;
 }
