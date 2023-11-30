@@ -1,0 +1,2 @@
+1. Primeira alternativa
+(X) O algoritmo é o método de ordenação Buble Sort e ele ainda pode ser modificado com o objetivo de se tornar mais eficiente, pois da forma como está escrito, comparações desnecessárias podem vir a acontecer.

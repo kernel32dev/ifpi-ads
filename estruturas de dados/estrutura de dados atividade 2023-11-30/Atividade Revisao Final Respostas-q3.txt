@@ -1,0 +1,6 @@
+3.
+a: 5 lista simplesmente encadeada
+b: 4 lista duplamente encadeada
+c: 1 lista circular
+d: 2 pilha
+e: 3 fila
