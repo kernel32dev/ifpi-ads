@@ -32,6 +32,9 @@ ela continua a ser abstrata
 ```ts
 class Quadrado extends FiguraGeometrica {
 	lado: number;
+	constructor(lado: number) {
+		this.lado = lado;
+	}
 	calcularArea(): number {
 		return lado * lado;
 	}
@@ -39,6 +42,10 @@ class Quadrado extends FiguraGeometrica {
 class Triangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	calcularArea(): number {
 		return lado_a * lado_b * 0.5;
 	}
@@ -46,12 +53,19 @@ class Triangulo extends FiguraGeometrica {
 class Retangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	calcularArea(): number {
 		return lado_a * lado_b;
 	}
 }
 class Circulo extends FiguraGeometrica {
 	raio: number;
+	constructor(raio: number) {
+		this.raio = raio;
+	}
 	calcularArea(): number {
 		return raio * raio * Math.PI;
 	}
@@ -84,18 +98,27 @@ abstract class Funcionario {
 }
 class Gerente : Funcionario {
 	salario: number;
+	constructor(salario: number) {
+		this.salario = salario;
+	}
 	override getBonificacao(): number {
 		return salario * 0.4;
 	}
 }
 class Diretor : Funcionario {
 	salario: number;
+	constructor(salario: number) {
+		this.salario = salario;
+	}
 	override getBonificacao(): number {
 		return salario * 0.6;
 	}
 }
 class Presidente : Funcionario {
 	salario: number;
+	constructor(salario: number) {
+		this.salario = salario;
+	}
 	override getBonificacao(): number {
 		return salario + 1000;
 	}
@@ -110,6 +133,9 @@ abstract class FiguraGeometrica {
 }
 class Quadrado extends FiguraGeometrica {
 	lado: number;
+	constructor(lado: number) {
+		this.lado = lado;
+	}
 	override calcularArea(): number {
 		return lado * lado;
 	}
@@ -117,6 +143,10 @@ class Quadrado extends FiguraGeometrica {
 class Triangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	override calcularArea(): number {
 		return lado_a * lado_b * 0.5;
 	}
@@ -124,12 +154,19 @@ class Triangulo extends FiguraGeometrica {
 class Retangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	override calcularArea(): number {
 		return lado_a * lado_b;
 	}
 }
 class Circulo extends FiguraGeometrica {
 	raio: number;
+	constructor(raio: number) {
+		this.raio = raio;
+	}
 	override calcularArea(): number {
 		return raio * raio * Math.PI;
 	}
@@ -148,39 +185,53 @@ interface IComparavel {
 }
 class Quadrado extends FiguraGeometrica implements IComparavel {
 	lado: number;
+	constructor(lado: number) {
+		this.lado = lado;
+	}
 	override calcularArea(): number {
 		return lado * lado;
 	}
-	override comparar(forma: FiguraGeometrica): number {
+	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
 	}
 }
 class Triangulo extends FiguraGeometrica implements IComparavel {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	override calcularArea(): number {
 		return lado_a * lado_b * 0.5;
 	}
-	override comparar(forma: FiguraGeometrica): number {
+	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
 	}
 }
 class Retangulo extends FiguraGeometrica implements IComparavel {
 	lado_a: number;
 	lado_b: number;
+	constructor(lado_a: number, lado_b: number) {
+		this.lado_a = lado_a;
+		this.lado_b = lado_b;
+	}
 	override calcularArea(): number {
 		return lado_a * lado_b;
 	}
-	override comparar(forma: FiguraGeometrica): number {
+	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
 	}
 }
 class Circulo extends FiguraGeometrica implements IComparavel {
 	raio: number;
+	constructor(raio: number) {
+		this.raio = raio;
+	}
 	override calcularArea(): number {
 		return raio * raio * Math.PI;
 	}
-	override comparar(forma: FiguraGeometrica): number {
+	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
 	}
 }
