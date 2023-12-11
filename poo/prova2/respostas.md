@@ -1,6 +1,6 @@
 
 # Respostas prova
-*Germano Barbosa da Silva Júnior - 2023-12-07*
+*Germano Barbosa da Silva Júnior - 2023-12-13*
 
 > #### 1. Podemos instanciar classes abstratas? Justifique.
 
@@ -17,6 +17,9 @@ não pois tem metodos não implementados, o que aconteceria se ele fosse criado 
 
 falta implementar a função imprimaAlgo:
 ```ts
+abstract class ClasseAbstrata {
+	abstract imprimaAlgo(): void ;
+}
 class ClasseConcreta extends ClasseAbstrata {
 	imprimaAlgo() {
 		console.log("Algo");
@@ -26,48 +29,55 @@ class ClasseConcreta extends ClasseAbstrata {
 
 > #### 3. Se uma classe que herda de uma abstrata e não implementa os seus métodos, o que ocorre?
 
-ela continua a ser abstrata
+da um erro, dizendo que a class deve ou se tornar abstrata ou implementar os métodos
 
 > #### 4. Imagine que você deve modelar várias figuras geométricas em TypeScript e que cada uma tem sua específica de calcular área e perímetro. Proponha e implemente uma hierarquia de classes usando uma classe abstrata chamada FiguraGeometrica e outras concretas: Quadrado, Triangulo, etc.
 ```ts
+abstract class FiguraGeometrica {
+	abstract calcularArea(): number;
+}
 class Quadrado extends FiguraGeometrica {
 	lado: number;
 	constructor(lado: number) {
+        super();
 		this.lado = lado;
 	}
 	calcularArea(): number {
-		return lado * lado;
+		return this.lado * this.lado;
 	}
 }
 class Triangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+        super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	calcularArea(): number {
-		return lado_a * lado_b * 0.5;
+		return this.lado_a * this.lado_b * 0.5;
 	}
 }
 class Retangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+        super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	calcularArea(): number {
-		return lado_a * lado_b;
+		return this.lado_a * this.lado_b;
 	}
 }
 class Circulo extends FiguraGeometrica {
 	raio: number;
 	constructor(raio: number) {
+        super();
 		this.raio = raio;
 	}
 	calcularArea(): number {
-		return raio * raio * Math.PI;
+		return this.raio * this.raio * Math.PI;
 	}
 }
 ```
@@ -96,33 +106,37 @@ pois estamos declarando um array de coisas que herdam de `FiguraGeometrica`, e n
 abstract class Funcionario {
 	abstract getBonificacao(): number;
 }
-class Gerente : Funcionario {
+class Gerente extends Funcionario {
 	salario: number;
 	constructor(salario: number) {
+        super();
 		this.salario = salario;
 	}
 	override getBonificacao(): number {
-		return salario * 0.4;
+		return this.salario * 0.4;
 	}
 }
-class Diretor : Funcionario {
+class Diretor extends Funcionario {
 	salario: number;
 	constructor(salario: number) {
+        super();
 		this.salario = salario;
 	}
 	override getBonificacao(): number {
-		return salario * 0.6;
+		return this.salario * 0.6;
 	}
 }
-class Presidente : Funcionario {
+class Presidente extends Funcionario {
 	salario: number;
 	constructor(salario: number) {
+        super();
 		this.salario = salario;
 	}
 	override getBonificacao(): number {
-		return salario + 1000;
+		return this.salario + 1000;
 	}
 }
+
 ```
 
 > #### 7. Refaça a questão 04 do exercício usando interfaces com os métodos propostos em vez de herança. Crie também um script que instancie e teste diferentes formas geométricas.
@@ -134,41 +148,45 @@ abstract class FiguraGeometrica {
 class Quadrado extends FiguraGeometrica {
 	lado: number;
 	constructor(lado: number) {
+		super();
 		this.lado = lado;
 	}
 	override calcularArea(): number {
-		return lado * lado;
+		return this.lado * this.lado;
 	}
 }
 class Triangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+		super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	override calcularArea(): number {
-		return lado_a * lado_b * 0.5;
+		return this.lado_a * this.lado_b * 0.5;
 	}
 }
 class Retangulo extends FiguraGeometrica {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+		super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	override calcularArea(): number {
-		return lado_a * lado_b;
+		return this.lado_a * this.lado_b;
 	}
 }
 class Circulo extends FiguraGeometrica {
 	raio: number;
 	constructor(raio: number) {
+		super();
 		this.raio = raio;
 	}
 	override calcularArea(): number {
-		return raio * raio * Math.PI;
+		return this.raio * this.raio * Math.PI;
 	}
 }
 ```
@@ -186,10 +204,11 @@ interface IComparavel {
 class Quadrado extends FiguraGeometrica implements IComparavel {
 	lado: number;
 	constructor(lado: number) {
+		super();
 		this.lado = lado;
 	}
 	override calcularArea(): number {
-		return lado * lado;
+		return this.lado * this.lado;
 	}
 	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
@@ -199,11 +218,12 @@ class Triangulo extends FiguraGeometrica implements IComparavel {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+		super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	override calcularArea(): number {
-		return lado_a * lado_b * 0.5;
+		return this.lado_a * this.lado_b * 0.5;
 	}
 	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
@@ -213,11 +233,12 @@ class Retangulo extends FiguraGeometrica implements IComparavel {
 	lado_a: number;
 	lado_b: number;
 	constructor(lado_a: number, lado_b: number) {
+		super();
 		this.lado_a = lado_a;
 		this.lado_b = lado_b;
 	}
 	override calcularArea(): number {
-		return lado_a * lado_b;
+		return this.lado_a * this.lado_b;
 	}
 	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
@@ -226,10 +247,11 @@ class Retangulo extends FiguraGeometrica implements IComparavel {
 class Circulo extends FiguraGeometrica implements IComparavel {
 	raio: number;
 	constructor(raio: number) {
+		super();
 		this.raio = raio;
 	}
 	override calcularArea(): number {
-		return raio * raio * Math.PI;
+		return this.raio * this.raio * Math.PI;
 	}
 	comparar(forma: FiguraGeometrica): number {
 		return Math.sign(this.calcularArea() - forma.calcularArea());
@@ -241,15 +263,50 @@ class Circulo extends FiguraGeometrica implements IComparavel {
 
 ```ts
 class TestadorFiguraGeometrica {
-	testar(): void {
-		// TODO!
-	}
+    testar() {
+        let a = new Retangulo(5, 5);
+        let b = new Circulo(2.5);
+        if (a.comparar(b) == 1) {
+            console.log("testes passaram");
+        } else {
+            console.log("testes	falharam");
+        }
+    }
 }
 ```
 
 > #### 10. Implemente o diagrama de classes abaixo:
 
-TODO!
+```ts
+interface Tributavel {
+	calculaTributos(): number;
+}
+class Conta {
+	nome: string;
+	saldo: number;
+	constructor(nome: string, saldo: number) {
+		this.nome = nome;
+		this.saldo = saldo;
+	}
+	getNome(): string { return this.nome; }
+	setNome(v: string): void { this.nome = v; }
+	getSaldo(): number { return this.saldo; }
+	setSaldo(v: number): void { this.saldo = v; }
+}
+class ContaCorrente extends Conta implements Tributavel {
+	constructor(nome: string, saldo: number) {
+		super(nome, saldo);
+	}
+	calculaTributos(): number {
+		return this.saldo * 0.1;
+	}
+}
+class SeguroDeVida implements Tributavel {
+	calculaTributos(): number {
+		return 50;
+	}
+}
+```
 
 > #### 11. Crie uma classe chamada AuditoriaInterna que tenha dois métodos que tenha um array de Tributaveis e os métodos:
 >
@@ -259,7 +316,29 @@ TODO!
 >
 > c. Crie uma classe de testes que instancie várias classes ContaCorrente e SeguroDeVida, adicione-as na classe AuditoriaInterna e exiba o resultado do método calculaTributos. Perceba que a classe de auditoria não se preocupa que tipo de classe está sendo passada.
 
-TODO!
+```ts
+class AuditoriaInterna {
+    contas: Tributavel[] = [];
+    adicionar(conta: Tributavel) {
+        this.contas.push(conta);
+    }
+    calcularTributos(): number {
+        return this.contas.reduce((acc, conta) => acc + conta.calculaTributos(), 0);
+    }
+}
+class TestarAuditoriaInterna {
+    testar() {
+        let auditoria = new AuditoriaInterna();
+        auditoria.adicionar(new ContaCorrente("123", 50));
+        auditoria.adicionar(new SeguroDeVida());
+        if (auditoria.calcularTributos() == 100) {
+            console.log("testes passaram");
+        } else {
+            console.log("testes	falharam");
+        }
+    }
+}
+```
 
 > #### 12. Altere a aplicação feita sobre redes sociais para:
 > a. Tratar erros e capturar exceções;
