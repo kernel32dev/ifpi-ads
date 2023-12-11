@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import { DeserializationError } from "./error";
 
 export class Auth {
     private _hash: string;
@@ -43,10 +44,10 @@ export class Auth {
     }
     static deserializarDeJson(json: any): Auth {
         if (typeof json.hash !== "string" || json.hash.length == 0)
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         if (typeof json.sal !== "string" || json.sal.length == 0)
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         return new Auth(json.hash, json.sal);
     }

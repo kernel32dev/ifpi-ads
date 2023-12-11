@@ -1,8 +1,11 @@
 import { Auth } from "./auth";
+import { AppError, PerfilNaoEncontradoError } from "./error";
 import { Perfil } from "./perfil";
 import { Postagem } from "./postagem";
 import { PostagemAvancada } from "./postagem_avancada";
 import { RedeSocial } from "./rede_social";
+import { RepositorioDePerfisArray, RepositorioDePerfisList } from "./repositorio_de_perfis";
+import { RepositorioDePostagensArray, RepositorioDePostagensList } from "./repositorio_de_postagens";
 import { askEnter, askInt, askIntOpt, askStr } from "./utils";
 import * as fs from 'fs';
 
@@ -25,29 +28,56 @@ const MENU_NUM = 9;
 
 class App {
     private _rede_social: RedeSocial;
-    constructor() {
-        this._rede_social = App.carregarDados();
+    constructor(rede_social: RedeSocial) {
+        this._rede_social = rede_social;
     }
 
     static main() {
-        let app = new App;
+        console.log(
+            "escolha a implementação dos repositórios:"
+            + "\ndigite 0 para escolher arrays"
+            + "\ndigite 1 para escolher lista simplesmente encadeada"
+            + "\naperte enter para confirmar a escolha"
+        );
+        let rede_social;
+        switch (askInt("MENU: ", 1, 0)) {
+            case 0:
+                rede_social = new RedeSocial(new RepositorioDePostagensArray(), new RepositorioDePerfisArray());
+                break;
+            case 1:
+                rede_social = new RedeSocial(new RepositorioDePostagensList(), new RepositorioDePerfisList());
+                break;
+            default:
+                return;
+        }
+        let app = new App(rede_social);
+        app.carregarDados();
         app.executar();
     }
 
     executar() {
         while (true) {
             console.log(MENU_TEXTO);
-            switch (askInt("MENU: ", MENU_NUM)) {
-                case 0: this.salvarDados(); return;
-                case 1: this.criarPerfil(); break;
-                case 2: this.criarPostagem(); break;
-                case 3: this.visualizarPostagensTodas(); break;
-                case 4: this.visualizarPostagensPerfil(); break;
-                case 5: this.visualizarPostagensHashtag(); break;
-                case 6: this.visualizarPostagensPopulares(); break;
-                case 7: this.visualizarHashtagsPopulares(); break;
-                case 8: this.visualizarPerfisPopulares(); break;
-                case 9: this.gerarPerfilAleatorio(); break;
+            try {
+                switch (askInt("MENU: ", MENU_NUM)) {
+                    case 0: this.salvarDados(); return;
+                    case 1: this.criarPerfil(); break;
+                    case 2: this.criarPostagem(); break;
+                    case 3: this.visualizarPostagensTodas(); break;
+                    case 4: this.visualizarPostagensPerfil(); break;
+                    case 5: this.visualizarPostagensHashtag(); break;
+                    case 6: this.visualizarPostagensPopulares(); break;
+                    case 7: this.visualizarHashtagsPopulares(); break;
+                    case 8: this.visualizarPerfisPopulares(); break;
+                    case 9: this.gerarPerfilAleatorio(); break;
+                }   
+            } catch (error) {
+                if (error instanceof AppError) {
+                    console.log("Ocorreu um erro ao processar o comando: " + error.message);
+                    askEnter("aperte enter para continuar");
+                } else {
+                    throw error;
+                }
             }
         }
     }
@@ -58,12 +88,12 @@ class App {
         fs.writeFileSync(DATABASE, json_text);
     }
 
-    static carregarDados(): RedeSocial {
-        if (!fs.existsSync(DATABASE))
-            return new RedeSocial();
-        let json_text = fs.readFileSync(DATABASE, "utf8");
-        let json = JSON.parse(json_text);
-        return RedeSocial.deserializarDeJson(json);
+    carregarDados() {
+        if (fs.existsSync(DATABASE)) {
+            let json_text = fs.readFileSync(DATABASE, "utf8");
+            let json = JSON.parse(json_text);
+            this._rede_social.deserializarDeJson(json);
+        }
     }
 
     criarPerfil() {
@@ -236,7 +266,7 @@ class App {
         console.log();
         let perfis = this._rede_social.exibirPerfisPopulares();
         perfis.forEach((perfil, index) => {
-            console.log(`${index + 1}º #${perfil.getNome()}`);
+            console.log(`${index + 1}º @${perfil.getNome()}`);
         });
         console.log();
         let index = askIntOpt("Ver postagens do perfil na posição Nº: ", perfis.length, 1);
@@ -284,9 +314,18 @@ class App {
             "Todo problema do Brasil é por causa da falta do estado",
         ];
         let nome_index;
-        do {
+        while (true) {
             nome_index = Math.floor(Math.random() * NOMES.length);
-        } while (this._rede_social.consultarPerfil({nome: NOMES[nome_index]}) != null);
+            try {
+                this._rede_social.consultarPerfil({nome: NOMES[nome_index]});
+            } catch (error) {
+                if (error instanceof PerfilNaoEncontradoError) {
+                    break;
+                } else {
+                    throw error;
+                }
+            }
+        }
         let id = this._rede_social.gerarIdPerfil();
         let nome = NOMES[nome_index];
         let email = nome + "@random.com";
@@ -322,11 +361,16 @@ class App {
             if (!Number.isSafeInteger(id) || id <= 0) {
                 id = undefined;
             }
-            let perfil = this._rede_social.consultarPerfil({id, nome: busca, email: busca});
-            if (perfil != null) {
-                return perfil;
+            try {
+                return this._rede_social.consultarPerfil({id, nome: busca, email: busca});
+            } catch (error) {
+                if (error instanceof PerfilNaoEncontradoError) {
+                    console.log("Perfil " + busca + " não encontrado");
+                    continue;
+                } else {
+                    throw error;
+                }
             }
-            console.log("Perfil " + busca + " não encontrado");
         }
     }
 

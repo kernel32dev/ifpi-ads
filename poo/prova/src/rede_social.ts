@@ -1,26 +1,39 @@
-import { RepositorioDePostagens } from "./repositorio_de_postagens";
-import { RepositorioDePerfis } from "./repositorio_de_perfis";
+import { IRepositorioDePostagens } from "./repositorio_de_postagens";
+import { IRepositorioDePerfis } from "./repositorio_de_perfis";
 import { Perfil } from "./perfil";
 import { Postagem } from "./postagem";
 import { PostagemAvancada } from "./postagem_avancada";
+import { DeserializationError, IdEmUsoError, PerfilNaoEncontradoError, PostagemNaoEncontradaError } from "./error";
 
 export class RedeSocial {
-    private _postagens: RepositorioDePostagens = new RepositorioDePostagens();
-    private _perfis: RepositorioDePerfis = new RepositorioDePerfis();
+    private _postagens: IRepositorioDePostagens;
+    private _perfis: IRepositorioDePerfis;
+
+    constructor(postagens: IRepositorioDePostagens, perfis: IRepositorioDePerfis) {
+        this._postagens = postagens;
+        this._perfis = perfis;
+    }
 
     gerarIdPerfil(): number {
         return this._perfis.gerarId();
     }
     incluirPerfil(perfil: Perfil) {
-        if (this._postagens.consultar({id: perfil.getId()}).length != 0)
-            throw new Error("Id já existe");
-        this._perfis.incluir(perfil);
+        try {
+            this._perfis.consultar({id: perfil.getId()});
+            throw new IdEmUsoError();
+        } catch (error) {
+            if (error instanceof PerfilNaoEncontradoError) {
+                this._perfis.incluir(perfil);
+            } else {
+                throw error;
+            }
+        }
     }
     consultarPerfil(filtros: {
         id?: number,
         nome?: string,
         email?: string,
-    }): Perfil | null {
+    }): Perfil {
         return this._perfis.consultar(filtros);
     }
     gerarIdPostagem(): number {
@@ -42,13 +55,19 @@ export class RedeSocial {
     }
     curtir(idPostagem: number) {
         let rows = this._postagens.consultar({id: idPostagem});
-        if (rows.length > 0)
+        if (rows.length > 0) {
             rows[0].curtir();
+        } else {
+            throw new PostagemNaoEncontradaError();
+        }
     }
     descurtir(idPostagem: number) {
         let rows = this._postagens.consultar({id: idPostagem});
-        if (rows.length > 0)
+        if (rows.length > 0) {
             rows[0].descurtir();
+        } else {
+            throw new PostagemNaoEncontradaError();
+        }
     }
     decrementarVisualizacoes(postagem: PostagemAvancada) {
         if (postagem.getVisualizacoesRestantes() > 0)
@@ -61,7 +80,6 @@ export class RedeSocial {
     }
     exibirPostagensPorPerfil(idPerfil: number): Postagem[] {
         let perfil = this._perfis.consultar({id: idPerfil});
-        if (perfil === null) return [];
         let postagens =  this._postagens.consultar({perfil, visivel: true});
         for (let postagem of postagens) {
             if (postagem instanceof PostagemAvancada) {
@@ -111,21 +129,14 @@ export class RedeSocial {
         };
     }
 
-    static deserializarDeJson(json: any): RedeSocial {
+    deserializarDeJson(json: any) {
         if (typeof json.perfis !== "object") 
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         if (typeof json.postagens !== "object") 
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
-        let perfis = RepositorioDePerfis.deserializarDeJson(json.perfis);
-        let postagens = RepositorioDePostagens.deserializarDeJson(json.postagens, perfis);
-
-        let redeSocial = new RedeSocial();
-
-        redeSocial._perfis = perfis;
-        redeSocial._postagens = postagens;
-
-        return redeSocial;
+        this._perfis.deserializarDeJson(json.perfis);
+        this._postagens.deserializarDeJson(json.postagens, this._perfis);
     }
 }

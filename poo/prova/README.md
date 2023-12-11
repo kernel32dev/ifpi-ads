@@ -2,6 +2,7 @@
 *Germano Barbosa da Silva Júnior*
 
 prova de poo 2023.2
+##### *(atualizado com interfaces e erros)*
 ---
 
 se `tsc` não estiver instalado, instale com o comando `npm i typescript --global`

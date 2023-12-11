@@ -1,5 +1,6 @@
 import { Postagem } from "./postagem";
 import { Auth } from "./auth";
+import { DeserializationError } from "./error";
 
 export class Perfil {
     private _id: number;
@@ -36,19 +37,19 @@ export class Perfil {
     }
     static deserializarDeJson(json: any): Perfil {
         if (typeof json.id !== "number" || !Number.isSafeInteger(json.id) || json.id <= 0)
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         if (typeof json.nome !== "string" || json.nome.length == 0)
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         if (typeof json.email !== "string" || json.email.length == 0)
-            throw new Error("Deserialization Error");
+            throw new DeserializationError();
 
         let auth = null;
 
         if (json.auth !== null) {
             if (typeof json.auth !== "object")
-                throw new Error("Deserialization Error");
+                throw new DeserializationError();
 
             auth = Auth.deserializarDeJson(json.auth);
         }
