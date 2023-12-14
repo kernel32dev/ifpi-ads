@@ -351,3 +351,5 @@ class TestarAuditoriaInterna {
 código atualizado: https://github.com/kernel32dev/ifpi-ads/blob/master/poo/prova
 
 highlight das mudanças: https://github.com/kernel32dev/ifpi-ads/compare/af4e18e..0734562
+
+vídeo explicando mudanças: https://youtu.be/SqC0NcKhXK8
