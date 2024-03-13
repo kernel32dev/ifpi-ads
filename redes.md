@@ -1,7 +1,7 @@
 
 Dispositivo = Todo e qualquer erquipamento endereçavel e ativo na rede
 
-Rede = conjunto de 2 ou mais dispositivos conectaods por um meio de transmissão e que utilizam protocolos para oferecer serviços aos usuários
+Rede = conjunto de 2 ou mais dispositivos conectados por um meio de transmissão e que utilizam protocolos para oferecer serviços aos usuários
 
 Meio de transmiisao: e a infraestrutura utilizada para transportar os dados pela rede, pode ser com fio / set fio
 
@@ -41,5 +41,120 @@ modelos de arquitetura de redes
         serviço é a forma como a camada trabalha
         protocolo é a implementação dos serviços
     modelos de camadas:
-    modelo osi/iso
-    modelo tcp/ip
+        modelo osi/iso
+            modelo proposto pela iso (international standard organization)
+            é considerado um modelo aberto osi (open standard interconnection)
+            é um modelo conceitualmente robusto e completo, embora não prático
+            surgiu independente (antes) dos protocolos
+            composto por 7 camadas
+                aplicação - apresentação - sessão - transporte - rede - enlace - física
+                1: camada física:
+                    responsável pela definicção e tratamento dos aspectos físicos na comunicação na rede
+                    isso envolve entre outras coisas
+                        representação binária dos sinais eletricos
+                        definição da voltagem utilizada
+                        tempo de duração no pulso elétrico
+                        conectores / pinagem
+                        meios de transmissão
+                            com fio
+                                cabo ethernet
+                                cabo coaxial
+                                fibra óptica
+                            sem fio
+                                rádio frequência
+                                later
+                                satélite
+                                microondas
+                    o bit é a unidade de dados da camada
+                    multiplexação / comutação
+                2: camada enlace:
+                    organiza os bits brutos vindos da camada física em estruturas de dados organizados denominados quadros (frames)
+                    principais funções
+                        enquadramento
+                        controle de erros
+                        controle de fluxo
+                        controle de acesso ao meio
+                3: camada de rede:
+                    controla a operação da subrede
+                    a unidade padrão é o pacote
+                    funções principais
+                        controle de roteamento (estático / dinâmico)
+                        controle de congestionamento
+                        endereçamento de hosts
+                        interconexão de redes heterogênias
+                        contabilização de pacotes
+                    oferece os serviços SOC e SNOC
+                4: camada de transporte:
+                    recebe dados vindos da camada de sessão
+                    divide-os em unidades menores
+                    repassa à camada de rede
+                    tipo de serviço oferecido
+                        serviço orientado a conexão
+                    a camada funciona como um controller da transmissão, assegurando controle e garantia de entrega
+                    por isso é considerada fim a fim
+                    (obs na camada de rede, os serviços oferecidos são SOC e SNOC)
+                5: camada de sessão & 6: camada de apresentação
+                    permitem que computadores de arquiteturas diferentes comuniquem se comuniquem (sessão)
+                    trata da segurança (criptografia) => apresentação
+                7: camada de aplicação
+                    é o nível mais alto do modelo
+                    é o nível que a maioria dos usuários trabalham
+                    aqui são definidos e implementadosos serviços e protocolos de alto nível
+        modelo tcp/ip
+            é o modelo internet
+            criado inicialmente para a arpanet, depois internet
+            uma criação dos americanos motivada pelo departamento de defesa
+            filosofia do modelo
+                a comunicação entre origem e destino deve continuar funcionando, mesmo quando algum enlace intermediário parar de funcionar repentinamente
+            diferentemente do protocolo osi, seus protocolos são amplamentes utilizados
+            na verdade, o modelos surgiu após os protocolos
+            formalmente o modelo possui 4 camadas
+                aplicação - transporte - inter-redes - host-rede
+            1. nível host-rede
+                na prática esse nível não existe implementado no modelo
+                a única coisa formal que existe é que os protocolos implementados nesse nível deve ser comunicar e oferecer interface de comunicação com o protocol internet (IP)
+                mas tais protocolos não são explicitados
+            2. nível inter-rede
+                condiderando as diferenças entre os modelos seria equivamente ao nível de redes do OSI
+                função principal
+                    permitir que os hosts injetem pacotes na rede garantindo que eles trafegarão independentemente
+                    oferece SNOC
+                    a ordem de entrada dos pacotes não é garantida
+                    tem o ip como o principal protocolo da camada
+                roteamento é a principal função da camada
+                além disso faz o endereçamento ip
+            3. nível de transporte
+                camada responsável pelo controle de entrega dos pacotes
+                dois protocolos são essenciais para a camada
+                A) TCP (transmission control protocol)
+                    protocolo orientado a conexão
+                    mais rígido em relação a entrega de pacotes
+                B) UDP (user datagram protocol)
+                    protocolo não orientado a conexão
+                    mais rápido que TCP
+                    indicado para tráfego multimídia
+                    prtocolo~não orientado a conexão
+    tipo de serviço
+        serviço é aquilo que a camada faz e/ou oferece as camadas adjascentes
+        nesse contexto existem 2 tipos de serviços, sendo eles SOC e SNOC (serviço (não) orientado a conexão)
+            SOC - serviço orientado a conexão
+                esse serviço exige que seja estabelescida uma conexão entre transmissão e receptor antes do início da transmissão de dados
+                nesse processo de conexão são negociados e definidos algumas regras ou parâmetros
+                    rota (caminho percorrido pelos pacores na rede)
+                    tamanho máximo do pacote
+                    tipo de confimaçãoo de entrega (confiabilidade)
+                    outros
+                dessa forma são seguidas as seguintes etapas
+                    I  ) solicitação da conexão
+                    II ) estabelecimento da conexão
+                    III) transmissão de dados
+                    IV ) solicitação de encerramento da conexão
+                    V  ) encerramento da conectados
+            SNOC - serviço não orientado a conexão
+                nesse serviço não há obrigatoriedadde de estabelescimento de conexão previa
+                cada pacote é enviado na rede ao destino sem conhecimento da rota
+                cada pacote é roteado independentemente do outro
+                a ordem de chegada não é garantida
+                podem ser confirmados ou não confirmados
+                é um serviço menos confiável, porém mais rápido que SOC
+
