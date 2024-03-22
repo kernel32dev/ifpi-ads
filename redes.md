@@ -43,3 +43,39 @@ modelos de arquitetura de redes
     modelos de camadas:
     modelo osi/iso
     modelo tcp/ip
+
+MERGIR DEPOIS:
+B2-capo coaxial
+    é um cabo bem diferente do cabo par trançado
+    a semelhança é apenas na composição interna, pois ambos são de cobre
+    foram utilizados no passado em redes locais
+    no entanto hoje seu uso está praticamente restrito para antenas sejam de tv satélite ou internet
+    é um cabo com uma estrutura que protege mais o cobre efeitos de interferencias externas
+    === começo da imagem ===
+    capa plástica externa
+        malha de aço (blindagem)
+            material plástico isolante
+                fio de cobre
+            material plástico isolante
+        malha de aço (blindagem)
+    capa plástica externa
+    === fim da imagem ===
+    podem ser classificados em
+    coaxial fino
+    coaxial grosso
+B3-fibra óptica
+    representa a maior evolução nos meios de transmissão
+    a fibra é diferente de tudo que havia antes em termos de meio de transmissão
+        fibra de vidro, não de cobre
+        utiliza luz, não energia elétrica
+    caracteristicas principais
+        alta performance
+        baixíssima taxa de erro
+        excelente alcançe (autonomia)
+    estrutúra básica
+        fonte de luz
+        fibra de vidro
+        detector de luz
+    classificação
+        monomodo
+        multimodo
