@@ -1,0 +1,20 @@
+@startuml gsm
+
+actor Jogador
+
+usecase CadastrarMundo as "Cadastrar Mundo"
+Jogador --> CadastrarMundo
+
+usecase IniciarMundo as "Iniciar Mundo"
+Jogador --> IniciarMundo
+
+usecase PararMundo as "Parar Mundo"
+Jogador --> PararMundo
+
+usecase VisualizarLogs as "Visualizar Logs do Mundo"
+Jogador --> VisualizarLogs
+
+usecase ExecutarComandos as "Executar Comandos no Mundo"
+ExecutarComandos ~~>"extends" VisualizarLogs
+
+@enduml

@@ -1,0 +1,26 @@
+Sistema de vistoria dos bombeiros 
+Auxilia o vistoriante a fazer vistorias
+Tem dois tipos de usuário administrador e vistoriante
+Um administrador é o fiscalizador, que recebe as vistorias avulsas
+A vistoria pode ser concluída apenas como devolvida, aprovada ou reprovada
+A devolução é feita com uma descrição opcional, explicando o motivo da devolução
+Administradores podem repassar uma vistoria para outro administrador
+Vistoriantes podem fazer fiscalizações avulsas
+Administradores podem criar e atribuir vistorias
+Existem dois tipos de vistoria, regularização e fiscalização, cada um com seu formulário único
+Os itens do formulário não mudam
+O UFR usado tem que ser cadastrável por administradores
+O UFR que vale é o do ano do cadastro
+A fiscalização tem dois tipos, avulsas e denúncia
+Fiscalizações avulsas não tem número do processo até ser regularizado pelo administrador
+A fiscalização é composta por no máximo 3 vistorias
+Após concluir a vistoria, o PDF com o formulário preenchido é enviado para o administrador que o atribuiu ou o administrador fiscalizador
+O sistema deve validar os dados preenchidos de acordo com as regras de negócio
+O sistema deve ter relatórios ou telas para visualizar as vistorias
+O sistema deve ter relatórios de uso geral, que ainda vão ser especificados
+O sistema será hospedado localmente e será mantido pelo setor de TI
+O sistema deve permitir o preenchimento de formulários sem internet
+Administradores criam contas de outros administradores e vistoriante a
+Todos os usuários podem mudar suas senhas a qualquer momento
+Atividades terão um histórico visível
+Contas tem nome de usuário, CPF, patente e senha

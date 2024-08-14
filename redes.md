@@ -45,7 +45,7 @@ modelos de arquitetura de redes
     modelo tcp/ip
 
 MERGIR DEPOIS:
-B2-capo coaxial
+B2-cabo coaxial
     é um cabo bem diferente do cabo par trançado
     a semelhança é apenas na composição interna, pois ambos são de cobre
     foram utilizados no passado em redes locais
@@ -79,3 +79,86 @@ B3-fibra óptica
     classificação
         monomodo
         multimodo
+CAMADA DE ENLACE
+    é a primeira camada de nível inferior que possui estruturação de dados
+    organiza os bits brutos vindos da camada física em estruturas de dados denominadas quadros (frames)
+    serviços oferecidos
+        sem conexão e sem confirmação
+        sem conexão e com confirmação
+        com conexão e com confirmação
+    funções físicas da camada
+        I: Enquadramento
+            é a função da camada e necessária para o bom funcionamento das demais
+            organiza os buts brutos vindos da camada física em quadros
+                CABEÇALHO CARGA ÚTIL
+                ^----- QUADRO -----^
+            métodos de enquadramento
+                contagem de caracteres
+                    define um campo no cabeçalho para indicar o tamanho do quadro
+                    ou seja, quantos bits ele possui
+                    basta o receptor lêr esse campo e assim irá identificar onde o quadro encerra
+                    51000140106101100210
+                    ^-----^---^------^--
+                    problema: erro em algum erro de contador -> quebra total de sincronismo
+                byte de flag delimitador
+                    consiste em definir um byte especial delimitador, chamado de flag
+                    assim cada quadro começa e termina com o byte flag
+                    um problema é a presença do byte flag na mensagem
+                    a solução para isso é a inserção de outro caractere especial, aqui chamado de esc
+                    ilustração:
+                        (A)(B) -> (FLAG)(A)(B)(FLAG)
+                        (A)(FLAG)(B) -> (FLAG)(A)(ESC)(FLAG)(B)(FLAG)
+                        (A)(ESC)(B) -> (FLAG)(A)(ESC)(ESC)(B)(FLAG)
+                        (A)(ESC)(FLAG)(B) -> (FLAG)(A)(ESC)(ESC)(ESC)(FLAG)(B)(FLAG)
+        II: Controle de erros
+            é outra função da camada de enlace
+            essencial para identificar e/ou corrigir erros gerados pela rede
+            dois métodos se destacam, sendo eles:
+            Código de hamming
+                um método de correção de erros
+                ou seja detecta e corrige erros simples
+                pode dar falso positivos e falso negativos
+                como funciona o método
+                    uma mensagem composta de bits a ser enviada é composta por 2 tipos de bits
+                considere a sequência abaixo
+                011001010110011011
+                A) bits de código
+                    também chamados de bits de verificação (paridade ou redundante)
+                    no quadro ocupam as posições de potência de 2
+                    011001010110011011
+                    ^^ ^   ^       ^
+                    esses bits são utilizados para verificar erros nos bits de dados
+                    para isso, utiliza o conceito de bit de paridade, podendo ser par ou ímpar vejamos
+                    10011010 (par)
+                B) bits de dados
+                    no quadro ocupam as posições diferentes da potência de 2
+                    011001010110011011
+                      ^ ^^^ ^^^^^^^ 
+                como saber quais bits de dados entrarão no cálculo dos bits de paridade?
+                o bit de paridade na posição N (base 1) é calculado a partir do xor dos bits de dados nos quais o Nº bit da posição é 1
+                bit de paridade 1 = 3 + 5 + 7 + 9 + 11 + ...
+                bit de paridade 2 = 3 + 6 + 7 + 10 + 11 + ...
+                bit de paridade 4 = 5 + 6 + 7 + 12 + 13 + ...
+                bit de paridade 8 = 9 + 10 + 11 + 12 + 13 + ...
+            CRC (Código de redundância ciclíca)
+                um método de detecção de erros
+                ou seja, somente detecta erros no receptor, mas não faz correção
+                nesse caso o quadro precisa ser retransmitido
+                preciso, 100% de acerto
+                crc se baseia na representação polinomial binária
+                ou seja os coeficientes são 0s e 1s
+                assim como hamming, utiiza a paridade, crc utiliza a operação XOR na aritmética do método
+
+                dada uma sequência binária a ser transmitida, chamamos essa sequência de mcx
+                assim como hamming define a paridade par ou ímpar, crc, defini o polinômo gerador g(x), que é um polinômo fornecido
+                R é um número calculado como sendo o grau do g(x)
+
+                o dado do transmissor
+                I)   dado a sequência MCX, adicione R bits 0s a direita de MCX
+                II)  divida essa sequência M(X) + [R bits 0s] pelo polinômio gerador
+                III) o resto da divisão contendo R bits será o FCS (Frame Check Sequence)
+                IV)  a sequência final transmitida será então MCX + FCS
+        III: Controle de fluxo
+        IV: Controle do acesso do meio
+
+

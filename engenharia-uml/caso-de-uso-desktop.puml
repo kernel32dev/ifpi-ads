@@ -1,0 +1,54 @@
+@startuml bombeiros
+
+actor Administrador
+actor Vistoriante
+
+package Desktop {
+    usecase VirarAdmnistradorFiscalizador as "Virar Admnistrador Fiscalizador"
+    Administrador --> VirarAdmnistradorFiscalizador
+
+    usecase AtribuirVistoria as "Atribuir Vistoria"
+    Administrador --> AtribuirVistoria
+    AtribuirVistoria --> Vistoriante
+
+    usecase FinalizarVistoria as "Finalizar Vistoria"
+    Administrador --> FinalizarVistoria
+
+    usecase RepassarVistoria as "Repassar Vistoria"
+    Administrador <--> RepassarVistoria
+
+    usecase CriarRegularizacao as "Criar Regularização"
+    Administrador --> CriarRegularizacao
+    CriarRegularizacao ~~> "include" AtribuirVistoria
+
+    usecase CriarDenuncia as "Criar Denúncia"
+    Administrador --> CriarDenuncia
+    CriarDenuncia ~~> "include" AtribuirVistoria
+
+    usecase CriarFiscalizacaoAvulsa as "Criar Fiscalização Avulsa"
+    Administrador --> CriarFiscalizacaoAvulsa
+    CriarFiscalizacaoAvulsa ~~> "include" AtribuirVistoria
+
+    usecase AlterarUFR as "Alterar o UFR"
+    Administrador --> AlterarUFR
+
+    usecase GerarRelatorios as "Gerar Relatórios"
+    Administrador --> GerarRelatorios
+
+    usecase CadastarAdministrador as " Cadastar Administrador"
+    Administrador --> CadastarAdministrador
+
+    usecase CadastarVistoriante as " Cadastar Vistoriante"
+    Administrador --> CadastarVistoriante
+
+    usecase MudarSenhaAdmnistrador as "Mudar Senha Do Administrador"
+    Administrador --> MudarSenhaAdmnistrador
+
+    usecase VisualizarTodasAsVistorias as "Visualizar Todas As Vistorias"
+    Administrador --> VisualizarTodasAsVistorias
+
+    usecase VisualizarHistoricoDaVistoria as "Visualizar Historico Da Vistoria"
+    VisualizarHistoricoDaVistoria ~~> "extends" VisualizarTodasAsVistorias
+}
+
+@enduml

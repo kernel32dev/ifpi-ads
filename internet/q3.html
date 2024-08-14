@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        function soma() {
+            document.getElementById("output").innerText = Number(document.getElementById("left").value) + Number(document.getElementById("right").value);
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="left">
+    <span> + </span>
+    <input type="text" id="right">
+    <button onclick="soma()"> = </button>
+    <output id="output"></output>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let input = document.getElementById("input");
+            let output = document.getElementById("output");
+            input.addEventListener("keydown", e => {
+                if (e.key == "Enter") {
+                    let li = document.createElement("li");
+                    li.innerText = input.value;
+                    output.append(li);
+                    input.value = "";
+                }
+            })
+        });
+    </script>
+</head>
+<body>
+    <input type="text" id="input" placeholder="Digite e aperte enter">
+    <ul id="output"></ul>
+</body>
+</html>

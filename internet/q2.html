@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: white;
+            color: #000000;
+        }
+        body.contraste {
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <script>
+        function toggle(valor) {
+            document.body.classList.toggle("contraste", valor);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="toggle(true)">Alto contraste</button>
+    <button onclick="toggle(false)">Cores normais</button>
+    <h1>Texto</h1>
+</body>
+</html>

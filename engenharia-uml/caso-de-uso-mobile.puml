@@ -1,0 +1,28 @@
+@startuml bombeiros
+
+actor Administrador
+actor Vistoriante
+
+package Mobile {
+    usecase DevolverVistoria as "Devolver Vistoria"
+    Vistoriante --> DevolverVistoria
+    DevolverVistoria --> Administrador
+
+    usecase DevolverVistoriaComDescricao as "Devolver Vistoria Com Descrição"
+    DevolverVistoriaComDescricao --|> DevolverVistoria
+
+    usecase ConcluirVistoria as "Concluir Vistoria"
+    Vistoriante --> ConcluirVistoria
+    ConcluirVistoria --> Administrador
+
+    usecase MudarSenhaVistoriante as "Mudar Senha Do Vistoriante"
+    Vistoriante --> MudarSenhaVistoriante
+
+    usecase VisualizarVistoriasAtribuidas as "Visualizar Vistorias Atribuidas"
+    Vistoriante --> VisualizarVistoriasAtribuidas
+
+    usecase CriarVistoriaAvulsaDeFiscalizacaoPeloVistoriante as "Criar Vistoria Avulsa De Fiscalização Pelo Vistoriante"
+    Vistoriante --> CriarVistoriaAvulsaDeFiscalizacaoPeloVistoriante
+}
+
+@enduml
