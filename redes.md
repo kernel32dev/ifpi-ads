@@ -134,6 +134,69 @@ modelos de arquitetura de redes
                     mais rápido que TCP
                     indicado para tráfego multimídia
                     prtocolo~não orientado a conexão
+            4. nível de aplicação
+                o mais alto nível do modelo possui os protocolos e serviços de nível mais alto
+                vejamos alguns exemplos
+                    DNS
+                    HTTP
+                    FTP
+                    SMTP
+                    POP/IMAP
+                    SNMP
+                    TELNET
+                    SSH
+                comparação entre os modelos
+                    semelhanças
+                        ambos baseados em modelos de camadas
+                        quando possível a equivalência entre camadas, percebe-se a presença das mesmas funções com algumas excecções
+                        do meio pra cima as camadas apresentam muitas semelhanças
+                    diferenças
+                         o OSI diferencia/reconhece a diferença/conceito dos termos
+                            serviço/interface/protocolo (lembra o conceito de POO)
+                         o OSI foi concebido antes dos protocolos
+                            tem vantagens e desvantagens
+                        com o TCP/IP foi o contrário
+                            tem vantagens e desvantagens
+                        tipos de serviço das camadas de rede e transporte
+                        modelo OSI
+                            rede
+                                SOC
+                                SNOC
+                            transporte
+                                SOC
+                        modelo TCP/IP
+                            inter-redes
+                                SNOC
+                            transporte
+                                SOC
+                                SNOC
+                    camada física
+                        aspectos relacionados à camada
+                            ??
+                        alguns apectos tratados pela camada são importantes conhecermos melhor, dentre eles:
+                            I  ) meios de transmissão
+                                refere-se ao tipo de infraestrutura responsável pela transmissão física dos dados na rede
+                                os principais meios de transmissão são
+                                A) com fio
+                                    A1) cabo par trançado
+                                        composto por 1 par de fios de cobre trançados helicoidalmente
+                                        podem ser encontrados em diversas quantidades de pares em um mesmo cabo
+                                            2, 4, 8, 16, ..., 50, 100, ...
+                                        são classificados em
+                                            UTP (unshielded twisted pair)
+                                            STP (shielded twisted pair)
+                                        podem ser classificados também em categora, 3, 4, 5, 6 (5 e 6 são as atuais)
+                                        alcançam boas distâncias (KMS)
+                                        utilizados em redes locais e telefonia (passado recente)
+                                    A2) cabo coaxial
+                                    A3) fibra óptica
+                                B) sem fio
+                                    B1) cardiofrequência
+                                    B2) satélite
+                                    B3) microondas
+                                    B4) laser
+                            II ) multiplexação
+                            III) comutação
     tipo de serviço
         serviço é aquilo que a camada faz e/ou oferece as camadas adjascentes
         nesse contexto existem 2 tipos de serviços, sendo eles SOC e SNOC (serviço (não) orientado a conexão)
