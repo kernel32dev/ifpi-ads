@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        p, details {
+            margin-left: 0.5em;
+            border-left: 1px solid black;
+            padding-left: 0.5em;
+        }
+        body > details {
+            border-left: none;
+            margin-left: 0;
+        }
+        details[open] > summary {
+            font-weight: bold;
+        }
+        summary {
+            cursor: pointer;
+        }
+        p {
+            border-bottom: 1px gray solid;
+            border-collapse: collapse;
+        }
+        p:empty {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+	<p>Dispositivo = Todo e qualquer erquipamento endereçavel e ativo na rede</p>
+	<p>Rede = conjunto de 2 ou mais dispositivos conectados por um meio de transmissão e que utilizam protocolos para oferecer serviços aos usuários</p>
+	<p>Meio de transmiisao: e a infraestrutura utilizada para transportar os dados pela rede, pode ser com fio / set fio</p>
+	<p>Protocolo = é um conjunto de regras que definem como os dados são transmitidos e recebidos, bem como todos os aspectos necesários na comunicação entre todos os dispositivos envolvidos</p>
+<details><summary>na classificação de tipos de redes são usados os seguintes critérios</summary>
+    <details><summary>meio de transmissão</summary>
+		<p>com fio: ethernet -> IEEE 802 3</p>
+		<p>sem fio: wifi -> IEEE 802 11</p>
+    </details>
+    <details><summary>alcançe</summary>
+		<p>LAN (ethernet, wifi)</p>
+		<p>MAN (tv a cabo, telefonia celular, wimax)</p>
+		<p>WAN (internet, satélite)</p>
+    </details>
+    <details><summary>modo de transmissão</summary>
+        <details><summary>redes por diffusão</summary>
+			<p>* canal de distribuição é único e compartilhado com todas as estações</p>
+			<p>* um pacote enviado a uma estação é recebido por todas as outras</p>
+			<p>* um campo de endereço identifica para qual estação está sendo transmitido</p>
+			<p>* pode ser classificado em</p>
+			<p>broadcasting (todas recebem)</p>
+			<p>multicasting (o recebimento é particionado em canais)</p>
+        </details>
+        <details><summary>redes ponto a ponto</summary>
+			<p>a comunicação entre estações ocorre de maeinra direta, mas não necessariamente significa que estas estações estão se contectadas uma com a outra</p>
+			<p>os dados trafegam pela rede ocupando apenas as estações intermediárias</p>
+			<p>assim nem todas as estações da rede participam ou recebem os dados de uma determinada transmissão</p>
+        </details>
+    </details>
+</details>
+<details><summary>modelos de arquitetura de redes</summary>
+	<p>toda e qualquer tecnologia de redes, é construida com base em um modelo ou projeto/arquitetura</p>
+	<p>esse modelo especifica todo o funcionamento físico e lógico da tecnologia proposta, incluindo serviços e protocolos</p>
+	<p>de modo geral esses modelos são construídos em camadas, mas saem popularmente conhecidos como modelos de camadas</p>
+	<p>as camadas apresentam uma abstratção das funconalidades do modelo</p>
+	<p>cada camada oferece/realiza um ou mais serviços para as camadas vizinhas</p>
+	<p>a implementação nesses serviços é feita por protocolos</p>
+	<p>e a comunicação entre eles é intermediada via interfaces</p>
+    <details><summary>em resumo:</summary>
+		<p>camada é a forma de dividir as funcionalidades do modelo</p>
+		<p>serviço é a forma como a camada trabalha</p>
+		<p>protocolo é a implementação dos serviços</p>
+    </details>
+    <details><summary>tipo de serviço</summary>
+		<p>serviço é aquilo que a camada faz e/ou oferece as camadas adjascentes</p>
+        <details><summary>nesse contexto existem 2 tipos de serviços, sendo eles SOC e SNOC (serviço (não) orientado a conexão)</summary>
+            <details><summary>SOC - serviço orientado a conexão</summary>
+				<p>esse serviço exige que seja estabelescida uma conexão entre transmissão e receptor antes do início da transmissão de dados</p>
+                <details><summary>nesse processo de conexão são negociados e definidos algumas regras ou parâmetros</summary>
+					<p>rota (caminho percorrido pelos pacores na rede)</p>
+					<p>tamanho máximo do pacote</p>
+					<p>tipo de confimaçãoo de entrega (confiabilidade)</p>
+					<p>outros</p>
+                </details>
+                <details><summary>dessa forma são seguidas as seguintes etapas</summary>
+					<p>I  ) solicitação da conexão</p>
+					<p>II ) estabelecimento da conexão</p>
+					<p>III) transmissão de dados</p>
+					<p>IV ) solicitação de encerramento da conexão</p>
+					<p>V  ) encerramento da conectados</p>
+                </details>
+            </details>
+            <details><summary>SNOC - serviço não orientado a conexão</summary>
+				<p>nesse serviço não há obrigatoriedadde de estabelescimento de conexão previa</p>
+				<p>cada pacote é enviado na rede ao destino sem conhecimento da rota</p>
+				<p>cada pacote é roteado independentemente do outro</p>
+				<p>a ordem de chegada não é garantida</p>
+				<p>podem ser confirmados ou não confirmados</p>
+				<p>é um serviço menos confiável, porém mais rápido que SOC</p>
+            </details>
+        </details>
+    </details>
+    <details><summary>modelos de camadas:</summary>
+        <details><summary>modelo osi/iso</summary>
+			<p>modelo proposto pela iso (international standard organization)</p>
+			<p>é considerado um modelo aberto osi (open standard interconnection)</p>
+			<p>é um modelo conceitualmente robusto e completo, embora não prático</p>
+			<p>surgiu independente (antes) dos protocolos</p>
+            <details><summary>composto por 7 camadas</summary>
+				<p>aplicação - apresentação - sessão - transporte - rede - enlace - física</p>
+                <details><summary>1: camada física:</summary>
+					<p>responsável pela definicção e tratamento dos aspectos físicos na comunicação na rede</p>
+                    <details><summary>isso envolve entre outras coisas</summary>
+						<p>representação binária dos sinais eletricos</p>
+						<p>definição da voltagem utilizada</p>
+						<p>tempo de duração no pulso elétrico</p>
+						<p>conectores / pinagem</p>
+                        <details><summary>meios de transmissão</summary>
+                            <details><summary>com fio</summary>
+                                <details><summary>cabo ethernet</summary>
+									<p>..?</p>
+                                </details>
+                                <details><summary>cabo coaxial</summary>
+									<p>é um cabo bem diferente do cabo par trançado</p>
+									<p>a semelhança é apenas na composição interna, pois ambos são de cobre</p>
+									<p>foram utilizados no passado em redes locais</p>
+									<p>no entanto hoje seu uso está praticamente restrito para antenas sejam de tv satélite ou internet</p>
+									<p>é um cabo com uma estrutura que protege mais o cobre efeitos de interferencias externas</p>
+									<p>=== começo da imagem ===</p>
+									<p>capa plástica externa</p>
+									<p>malha de aço (blindagem)</p>
+									<p>material plástico isolante</p>
+									<p>fio de cobre</p>
+									<p>material plástico isolante</p>
+									<p>malha de aço (blindagem)</p>
+									<p>capa plástica externa</p>
+									<p>=== fim da imagem ===</p>
+									<p>podem ser classificados em</p>
+									<p>coaxial fino</p>
+									<p>coaxial grosso</p>
+                                </details>
+                                <details><summary>fibra óptica</summary>
+									<p>representa a maior evolução nos meios de transmissão</p>
+                                    <details><summary>a fibra é diferente de tudo que havia antes em termos de meio de transmissão</summary>
+										<p>fibra de vidro, não de cobre</p>
+										<p>utiliza luz, não energia elétrica</p>
+                                    </details>
+                                    <details><summary>caracteristicas principais</summary>
+										<p>alta performance</p>
+										<p>baixíssima taxa de erro</p>
+										<p>excelente alcançe (autonomia)</p>
+                                    </details>
+                                    <details><summary>estrutúra básica</summary>
+										<p>fonte de luz</p>
+										<p>fibra de vidro</p>
+										<p>detector de luz</p>
+                                    </details>
+                                    <details><summary>classificação</summary>
+										<p>monomodo</p>
+										<p>multimodo</p>
+                                    </details>
+                                </details>
+                            </details>
+                            <details><summary>sem fio</summary>
+								<p>rádio frequência</p>
+								<p>later</p>
+								<p>satélite</p>
+								<p>microondas</p>
+                            </details>
+                        </details>
+                    </details>
+					<p>o bit é a unidade de dados da camada</p>
+					<p>multiplexação / comutação</p>
+                </details>
+                <details><summary>2: camada enlace:</summary>
+					<p>organiza os bits brutos vindos da camada física em estruturas de dados organizados denominados quadros (frames)</p>
+                    <details><summary>principais funções</summary>
+						<p>enquadramento</p>
+						<p>controle de erros</p>
+						<p>controle de fluxo</p>
+						<p>controle de acesso ao meio</p>
+                    </details>
+					<p>é a primeira camada de nível inferior que possui estruturação de dados</p>
+					<p>organiza os bits brutos vindos da camada física em estruturas de dados denominadas quadros (frames)</p>
+                    <details><summary>serviços oferecidos</summary>
+						<p>sem conexão e sem confirmação</p>
+						<p>sem conexão e com confirmação</p>
+						<p>com conexão e com confirmação</p>
+                    </details>
+                    <details><summary>funções físicas da camada</summary>
+                        <details><summary>I: Enquadramento</summary>
+							<p>é a função da camada e necessária para o bom funcionamento das demais</p>
+                            <details><summary>organiza os buts brutos vindos da camada física em quadros</summary>
+								<p>CABEÇALHO CARGA ÚTIL</p>
+								<p>^----- QUADRO -----^</p>
+                            </details>
+                            <details><summary>métodos de enquadramento</summary>
+                                <details><summary>contagem de caracteres</summary>
+									<p>define um campo no cabeçalho para indicar o tamanho do quadro</p>
+									<p>ou seja, quantos bits ele possui</p>
+									<p>basta o receptor lêr esse campo e assim irá identificar onde o quadro encerra</p>
+									<p>51000140106101100210</p>
+									<p>^-----^---^------^--</p>
+									<p>problema: erro em algum erro de contador -> quebra total de sincronismo</p>
+                                </details>
+                                <details><summary>byte de flag delimitador</summary>
+									<p>consiste em definir um byte especial delimitador, chamado de flag</p>
+									<p>assim cada quadro começa e termina com o byte flag</p>
+									<p>um problema é a presença do byte flag na mensagem</p>
+									<p>a solução para isso é a inserção de outro caractere especial, aqui chamado de esc</p>
+                                    <details><summary>ilustração:</summary>
+										<p>(A)(B) -> (FLAG)(A)(B)(FLAG)</p>
+										<p>(A)(FLAG)(B) -> (FLAG)(A)(ESC)(FLAG)(B)(FLAG)</p>
+										<p>(A)(ESC)(B) -> (FLAG)(A)(ESC)(ESC)(B)(FLAG)</p>
+										<p>(A)(ESC)(FLAG)(B) -> (FLAG)(A)(ESC)(ESC)(ESC)(FLAG)(B)(FLAG)</p>
+                                    </details>
+                                </details>
+                            </details>
+                        </details>
+                        <details><summary>II: Controle de erros</summary>
+							<p>é outra função da camada de enlace</p>
+							<p>essencial para identificar e/ou corrigir erros gerados pela rede</p>
+							<p>dois métodos se destacam, sendo eles:</p>
+                            <details><summary>Código de hamming</summary>
+								<p>um método de correção de erros</p>
+								<p>ou seja detecta e corrige erros simples</p>
+								<p>pode dar falso positivos e falso negativos</p>
+								<p>como funciona o método: uma mensagem composta de bits a ser enviada é composta por 2 tipos de bits</p>
+								<p>considere a sequência abaixo</p>
+								<p>011001010110011011</p>
+                                <details><summary>A) bits de código</summary>
+									<p>também chamados de bits de verificação (paridade ou redundante)</p>
+									<p>no quadro ocupam as posições de potência de 2</p>
+									<p>011001010110011011</p>
+									<p>^^ ^   ^       ^</p>
+									<p>esses bits são utilizados para verificar erros nos bits de dados</p>
+									<p>para isso, utiliza o conceito de bit de paridade, podendo ser par ou ímpar vejamos</p>
+									<p>10011010 (par)</p>
+                                </details>
+                                <details><summary>B) bits de dados</summary>
+									<p>no quadro ocupam as posições diferentes da potência de 2</p>
+									<p>011001010110011011</p>
+									<p>^ ^^^ ^^^^^^^ </p>
+                                </details>
+								<p>como saber quais bits de dados entrarão no cálculo dos bits de paridade?</p>
+								<p>o bit de paridade na posição N (base 1) é calculado a partir do xor dos bits de dados nos quais o Nº bit da posição é 1</p>
+								<p>bit de paridade 1 = 3 + 5 + 7 + 9 + 11 + ...</p>
+								<p>bit de paridade 2 = 3 + 6 + 7 + 10 + 11 + ...</p>
+								<p>bit de paridade 4 = 5 + 6 + 7 + 12 + 13 + ...</p>
+								<p>bit de paridade 8 = 9 + 10 + 11 + 12 + 13 + ...</p>
+                            </details>
+                            <details><summary>CRC (Código de redundância ciclíca)</summary>
+								<p>um método de detecção de erros</p>
+								<p>ou seja, somente detecta erros no receptor, mas não faz correção</p>
+								<p>nesse caso o quadro precisa ser retransmitido</p>
+								<p>preciso, 100% de acerto</p>
+								<p>crc se baseia na representação polinomial binária</p>
+								<p>ou seja os coeficientes são 0s e 1s</p>
+								<p>assim como hamming, utiiza a paridade, crc utiliza a operação XOR na aritmética do método</p>
+								<p>dada uma sequência binária a ser transmitida, chamamos essa sequência de mcx</p>
+								<p>assim como hamming define a paridade par ou ímpar, crc, defini o polinômo gerador g(x), que é um polinômo fornecido</p>
+								<p>R é um número calculado como sendo o grau do g(x)</p>
+								<p>o dado do transmissor</p>
+								<p>I)   dado a sequência MCX, adicione R bits 0s a direita de MCX</p>
+								<p>II)  divida essa sequência M(X) + [R bits 0s] pelo polinômio gerador</p>
+								<p>III) o resto da divisão contendo R bits será o FCS (Frame Check Sequence)</p>
+								<p>IV)  a sequência final transmitida será então MCX + FCS</p>
+                            </details>
+                        </details>
+                        <details><summary>III: Controle de fluxo</summary>
+							<p>..?</p>
+                        </details>
+                        <details><summary>IV: Controle do acesso do meio</summary>
+							<p>..?</p>
+                        </details>
+                    </details>
+                </details>
+                <details><summary>3: camada de rede:</summary>
+					<p>controla a operação da subrede</p>
+					<p>a unidade padrão é o pacote</p>
+                    <details><summary>funções principais</summary>
+						<p>controle de roteamento (estático / dinâmico)</p>
+						<p>controle de congestionamento</p>
+						<p>endereçamento de hosts</p>
+						<p>interconexão de redes heterogênias</p>
+						<p>contabilização de pacotes</p>
+                    </details>
+					<p>oferece os serviços SOC e SNOC</p>
+                </details>
+                <details><summary>4: camada de transporte:</summary>
+					<p>recebe dados vindos da camada de sessão</p>
+					<p>divide-os em unidades menores</p>
+					<p>repassa à camada de rede</p>
+					<p>tipo de serviço oferecido: serviço orientado a conexão</p>
+					<p>a camada funciona como um controller da transmissão, assegurando controle e garantia de entrega</p>
+					<p>por isso é considerada fim a fim</p>
+					<p>(obs na camada de rede, os serviços oferecidos são SOC e SNOC)</p>
+                </details>
+                <details><summary>5: camada de sessão & 6: camada de apresentação</summary>
+					<p>permitem que computadores de arquiteturas diferentes comuniquem se comuniquem (sessão)</p>
+					<p>trata da segurança (criptografia) => apresentação</p>
+                </details>
+                <details><summary>7: camada de aplicação</summary>
+					<p>é o nível mais alto do modelo</p>
+					<p>é o nível que a maioria dos usuários trabalham</p>
+					<p>aqui são definidos e implementadosos serviços e protocolos de alto nível</p>
+                </details>
+            </details>
+        </details>
+        <details><summary>modelo tcp/ip</summary>
+			<p>é o modelo internet</p>
+			<p>criado inicialmente para a arpanet, depois internet</p>
+			<p>uma criação dos americanos motivada pelo departamento de defesa</p>
+            <details><summary>filosofia do modelo</summary>
+				<p>a comunicação entre origem e destino deve continuar funcionando, mesmo quando algum enlace intermediário parar de funcionar repentinamente</p>
+            </details>
+			<p>diferentemente do protocolo osi, seus protocolos são amplamentes utilizados</p>
+			<p>na verdade, o modelos surgiu após os protocolos</p>
+			<p>formalmente o modelo possui 4 camadas: aplicação - transporte - inter-redes - host-rede</p>
+            <details><summary>1. nível host-rede</summary>
+				<p>na prática esse nível não existe implementado no modelo</p>
+				<p>a única coisa formal que existe é que os protocolos implementados nesse nível deve ser comunicar e oferecer interface de comunicação com o protocol internet (IP)</p>
+				<p>mas tais protocolos não são explicitados</p>
+            </details>
+            <details><summary>2. nível inter-rede</summary>
+				<p>condiderando as diferenças entre os modelos seria equivamente ao nível de redes do OSI</p>
+                <details><summary>função principal</summary>
+					<p>permitir que os hosts injetem pacotes na rede garantindo que eles trafegarão independentemente</p>
+					<p>oferece SNOC</p>
+					<p>a ordem de entrada dos pacotes não é garantida</p>
+					<p>tem o ip como o principal protocolo da camada</p>
+                </details>
+				<p>roteamento é a principal função da camada</p>
+				<p>além disso faz o endereçamento ip</p>
+            </details>
+            <details><summary>3. nível de transporte</summary>
+				<p>camada responsável pelo controle de entrega dos pacotes</p>
+				<p>dois protocolos são essenciais para a camada</p>
+                <details><summary>A) TCP (transmission control protocol)</summary>
+					<p>protocolo orientado a conexão</p>
+					<p>mais rígido em relação a entrega de pacotes</p>
+                </details>
+                <details><summary>B) UDP (user datagram protocol)</summary>
+					<p>protocolo não orientado a conexão</p>
+					<p>mais rápido que TCP</p>
+					<p>indicado para tráfego multimídia</p>
+					<p>prtocolo~não orientado a conexão</p>
+                </details>
+            </details>
+            <details><summary>4. nível de aplicação</summary>
+				<p>o mais alto nível do modelo possui os protocolos e serviços de nível mais alto</p>
+                <details><summary>vejamos alguns exemplos</summary>
+					<p>DNS</p>
+					<p>HTTP</p>
+					<p>FTP</p>
+					<p>SMTP</p>
+					<p>POP/IMAP</p>
+					<p>SNMP</p>
+					<p>TELNET</p>
+					<p>SSH</p>
+                </details>
+                <details><summary>comparação entre os modelos</summary>
+                    <details><summary>semelhanças</summary>
+						<p>ambos baseados em modelos de camadas</p>
+						<p>quando possível a equivalência entre camadas, percebe-se a presença das mesmas funções com algumas excecções</p>
+						<p>do meio pra cima as camadas apresentam muitas semelhanças</p>
+                    </details>
+                    <details><summary>diferenças</summary>
+						<p>o OSI diferencia/reconhece a diferença/conceito dos termos</p>
+						<p>serviço/interface/protocolo (lembra o conceito de POO)</p>
+						<p>o OSI foi concebido antes dos protocolos</p>
+						<p>tem vantagens e desvantagens</p>
+                        <details><summary>com o TCP/IP foi o contrário</summary>
+							<p>tem vantagens e desvantagens</p>
+                        </details>
+						<p>tipos de serviço das camadas de rede e transporte</p>
+                        <details><summary>modelo OSI</summary>
+                            <details><summary>rede</summary>
+								<p>SOC</p>
+								<p>SNOC</p>
+                            </details>
+                            <details><summary>transporte</summary>
+								<p>SOC</p>
+                            </details>
+                        </details>
+                        <details><summary>modelo TCP/IP</summary>
+                            <details><summary>inter-redes</summary>
+								<p>SNOC</p>
+                            </details>
+                            <details><summary>transporte</summary>
+								<p>SOC</p>
+								<p>SNOC</p>
+                            </details>
+                        </details>
+                    </details>
+                    <details><summary>camada física</summary>
+                        <details><summary>aspectos relacionados à camada</summary>
+							<p>??</p>
+                        </details>
+                        <details><summary>alguns apectos tratados pela camada são importantes conhecermos melhor, dentre eles:</summary>
+                            <details><summary>I  ) meios de transmissão</summary>
+								<p>refere-se ao tipo de infraestrutura responsável pela transmissão física dos dados na rede</p>
+								<p>os principais meios de transmissão são</p>
+                                <details><summary>A) com fio</summary>
+                                    <details><summary>A1) cabo par trançado</summary>
+										<p>composto por 1 par de fios de cobre trançados helicoidalmente</p>
+                                        <details><summary>podem ser encontrados em diversas quantidades de pares em um mesmo cabo</summary>
+											<p>2, 4, 8, 16, ..., 50, 100, ...</p>
+                                        </details>
+                                        <details><summary>são classificados em</summary>
+											<p>UTP (unshielded twisted pair)</p>
+											<p>STP (shielded twisted pair)</p>
+                                        </details>
+										<p>podem ser classificados também em categora, 3, 4, 5, 6 (5 e 6 são as atuais)</p>
+										<p>alcançam boas distâncias (KMS)</p>
+										<p>utilizados em redes locais e telefonia (passado recente)</p>
+                                    </details>
+                                    <details><summary>A2) cabo coaxial</summary>
+                                    </details>
+                                    <details><summary>A3) fibra óptica</summary>
+                                    </details>
+                                </details>
+                                <details><summary>B) sem fio</summary>
+									<p>B1) cardiofrequência</p>
+									<p>B2) satélite</p>
+									<p>B3) microondas</p>
+									<p>B4) laser</p>
+                                </details>
+                            </details>
+                            <details><summary>II ) multiplexação</summary>
+								<p>..?</p>
+                            </details>
+                            <details><summary>III) comutação</summary>
+								<p>..?</p>
+                            </details>
+                        </details>
+                    </details>
+                </details>
+            </details>
+        </details>
+    </details>
+</details>
+</body>
+</html>
