@@ -1,0 +1,11 @@
+{
+    "name": "haming-crc",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "sucrase-node src/main.ts --debug",
+        "prod": "sucrase-node src/main.ts"
+    },
+    "dependencies": {
+        "sucrase": "*"
+    }
+}

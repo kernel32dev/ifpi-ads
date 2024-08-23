@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug ggo-whatsapp2",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--debug"
+            ],
+            "program": "${workspaceFolder}\\src\\main.ts",
+            "runtimeArgs": [
+                "-r",
+                "sucrase/register"
+            ],
+        }
+    ]
+}
