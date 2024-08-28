@@ -1,8 +1,16 @@
 import { flip, isEven, isPowerOfTwo } from "./utils";
 
+const PARIDADES = {
+    PAR: false,
+    IMPAR: true,
+};
+
+const paridade = PARIDADES.PAR;
+
 export function encode(message: string): string {
     let code = message.split("");
     let output = [];
+    let toda_redundancia = "";
     for (let i = 1; code.length > 0; i++) {
         if (isPowerOfTwo(i)) {
             output.push("?");
@@ -20,9 +28,11 @@ export function encode(message: string): string {
                 quantidade++;
             }
         }
-        const redundancia = isEven(quantidade) ? "1" : "0";
+        const redundancia = (paridade == isEven(quantidade)) ? "1" : "0";
+        toda_redundancia += redundancia;
         output[i] = redundancia;
     }
+    console.log("redundancia: " + toda_redundancia);
     return output.join("");
 }
 
@@ -38,7 +48,7 @@ export function decode(encoded: string): string {
                 quantidade++;
             }
         }
-        const redundancia = isEven(quantidade) ? "1" : "0";
+        const redundancia = (paridade == isEven(quantidade)) ? "1" : "0";
         if (redundancia != encoded[i]) {
             erro |= posicao_i;
         }

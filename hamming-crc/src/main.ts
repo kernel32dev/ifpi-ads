@@ -7,7 +7,7 @@ function test_hamming() {
     const encoded = hamming.encode(mensagem);
     const corrupted = flip(encoded, rng(encoded.length));
     const decoded = hamming.decode(corrupted);
-    
+
     console.log("=== HAMMING ===");
     console.log("mensagem:  " + mensagem);
     console.log("encoded:   " + encoded);
