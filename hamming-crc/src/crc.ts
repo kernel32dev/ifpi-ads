@@ -1,9 +1,9 @@
 import { flip, trimStartZeros } from "./utils";
 
 export function crc(input: string, poly: string) {
-    const original_input_len = input.length;
     const bits = poly.length - 1;
-    input = input.padEnd(bits - (input.length % bits), '0');
+    input += "0".repeat(bits);
+    const original_input_len = input.length;
     while (true) {
         input = trimStartZeros(input);
         console.log(input.padStart(original_input_len, " "));

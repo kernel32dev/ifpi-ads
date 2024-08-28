@@ -23,7 +23,7 @@ function test_crc() {
     const encoded = mensagem + redundancy;
     const corrupted = flip(encoded, rng(encoded.length));
     //const corrupted = encoded;
-    const redundancy2 = crc(corrupted.slice(0, 1 - polynomial.length), polynomial);
+    const redundancy2 = crc(corrupted, polynomial);
 
     console.log("===   CRC   ===");
     console.log("mensagem:    " + mensagem);
@@ -31,8 +31,7 @@ function test_crc() {
     console.log("redundancy:  " + redundancy);
     console.log("encoded:     " + encoded);
     console.log("corrupted:   " + corrupted);
-    console.log("redundancy2: " + redundancy2);
-    console.log("redundancy == redundancy2: " + (redundancy == redundancy2));
+    console.log("redundancy2: " + redundancy2 + (+redundancy2 == 0 ? " (ok)": " (err)"));
 }
 
 test_hamming();
