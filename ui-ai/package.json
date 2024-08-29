@@ -2,12 +2,16 @@
     "name": "haming-crc",
     "version": "0.0.0",
     "scripts": {
-        "dev": "sucrase-node src/main.ts --debug",
-        "prod": "sucrase-node src/main.ts"
+        "start": "node --env-file=.env -r sucrase/register src/main.ts"
     },
     "dependencies": {
-        "@types/express": "^4.17.21",
+        "@google/generative-ai": "^0.17.1",
         "express": "^4.19.2",
+        "showdown": "^2.1.0",
         "sucrase": "*"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.21",
+        "@types/showdown": "^2.0.6"
     }
 }
