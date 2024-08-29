@@ -1,5 +1,5 @@
 {
-    "name": "haming-crc",
+    "name": "ui-ai",
     "version": "0.0.0",
     "scripts": {
         "start": "node --env-file=.env -r sucrase/register src/main.ts"

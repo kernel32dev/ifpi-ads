@@ -1,0 +1,92 @@
+div.markdown {
+    background-color: #1e1e1e;
+    /* Cor de fundo para o tema escuro */
+    color: #d4d4d4;
+    /* Cor do texto padrão */
+}
+
+div.markdown code {
+    background-color: #2d2d2d;
+    color: #a5a5a5;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+    overflow: visible;
+}
+
+div.markdown pre {
+    background-color: #2d2d2d;
+    color: #a5c5ab;
+    padding: 10px;
+    border-radius: 4px;
+    overflow: auto;
+    font-family: 'Consolas', 'Courier New', Courier, monospace;
+}
+
+div.markdown h1,
+div.markdown h2,
+div.markdown h3,
+div.markdown h4,
+div.markdown h5,
+div.markdown h6 {
+    color: #ffffff;
+}
+
+div.markdown p {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+div.markdown strong {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+div.markdown ul,
+div.markdown ol {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+div.markdown li {
+    margin: 5px 0;
+}
+
+div.markdown hr {
+    border: 0;
+    height: 1px;
+    background: #444;
+    margin: 20px 0;
+}
+
+div.markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    background-color: #2d2d2d;
+}
+
+div.markdown thead {
+    background-color: #3e3e3e;
+}
+
+div.markdown tbody,
+div.markdown tfoot {
+    background-color: #1e1e1e;
+}
+
+div.markdown tr {
+    border-bottom: 1px solid #444;
+}
+
+div.markdown td,
+div.markdown th {
+    padding: 10px;
+    border: 1px solid #444;
+    color: #d4d4d4;
+}
+
+div.markdown th {
+    color: #e06c75;
+    font-weight: bold;
+}

@@ -1,0 +1,78 @@
+* {
+    margin: 0;
+    padding: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    font-family: inherit;
+}
+:root {
+    color-scheme: dark;
+}
+body {
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1e1e1e;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-x: hidden;
+}
+#main {
+    margin: 0 10%;
+    max-width: 700px;
+    flex: 1 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+#output {
+    max-width: 100%;
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2em 1em;
+}
+#output .user_prompt {
+    max-width: 80%;
+    width: max-content;
+    align-self: flex-end;
+    background-color: #303030;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+}
+#welcome {
+    text-align: center;
+}
+#input {
+    padding: 0 50%;
+    margin: 0 -50%;
+    position: sticky;
+    box-shadow: #1e1e1e 0px 0px 10px 10px;
+    background-color: #1e1e1e;
+    bottom: 0;
+}
+#input_bar {
+    background-color: #2d2d2d;
+    border-radius: 1em;
+    padding: 1em;
+    margin: 1em 2em ;
+    max-height: 5lh;
+    overflow-y: auto;
+}
+#input_box {
+    outline: none;
+}
+#input_box[contenteditable="true"]:empty::after {
+    color: gray;
+    content: "Faça uma pergunta";
+    user-select: none;
+    pointer-events: none;
+    height: 1lh;
+}
+#input_box[contenteditable="false"]:empty::after {
+    color: gray;
+    content: "Pensando...";
+    user-select: none;
+    pointer-events: none;
+    height: 1lh;
+}

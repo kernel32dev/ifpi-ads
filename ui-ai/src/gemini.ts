@@ -8,9 +8,14 @@ if (!geminiApiKey) {
 
 const genAI = new GoogleGenerativeAI(geminiApiKey);
 
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-export default async function gemini(prompt: string): Promise<string> {
-    const content = await model.generateContent(prompt);
+export default async function gemini(contents: string[]): Promise<string> {
+    const content = await model.generateContent({
+        contents: contents.map((text, index) => ({
+            role: index % 2 ? "model" : "user",
+            parts: [{ text }]
+        }))
+    });
     return content.response.text();
 }
