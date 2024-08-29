@@ -4,9 +4,6 @@ actor Administrador
 actor Vistoriante
 
 package Desktop {
-    usecase VirarAdmnistradorFiscalizador as "Virar Admnistrador Fiscalizador"
-    Administrador --> VirarAdmnistradorFiscalizador
-
     usecase AtribuirVistoria as "Atribuir Vistoria"
     Administrador --> AtribuirVistoria
     AtribuirVistoria --> Vistoriante
@@ -28,21 +25,6 @@ package Desktop {
     usecase CriarFiscalizacaoAvulsa as "Criar Fiscalização Avulsa"
     Administrador --> CriarFiscalizacaoAvulsa
     CriarFiscalizacaoAvulsa ~~> "include" AtribuirVistoria
-
-    usecase AlterarUFR as "Alterar o UFR"
-    Administrador --> AlterarUFR
-
-    usecase GerarRelatorios as "Gerar Relatórios"
-    Administrador --> GerarRelatorios
-
-    usecase CadastarAdministrador as " Cadastar Administrador"
-    Administrador --> CadastarAdministrador
-
-    usecase CadastarVistoriante as " Cadastar Vistoriante"
-    Administrador --> CadastarVistoriante
-
-    usecase MudarSenhaAdmnistrador as "Mudar Senha Do Administrador"
-    Administrador --> MudarSenhaAdmnistrador
 
     usecase VisualizarTodasAsVistorias as "Visualizar Todas As Vistorias"
     Administrador --> VisualizarTodasAsVistorias

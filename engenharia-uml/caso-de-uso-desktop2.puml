@@ -1,0 +1,26 @@
+@startuml bombeiros
+
+actor Administrador
+
+package Desktop {
+    usecase VirarAdmnistradorFiscalizador as "Virar Admnistrador Fiscalizador"
+    Administrador --> VirarAdmnistradorFiscalizador
+
+    usecase AlterarUFR as "Alterar o UFR"
+    Administrador --> AlterarUFR
+
+    usecase GerarRelatorios as "Gerar Relatórios"
+    Administrador --> GerarRelatorios
+
+    usecase CadastarAdministrador as " Cadastar Administrador"
+    Administrador --> CadastarAdministrador
+
+    usecase CadastarVistoriante as " Cadastar Vistoriante"
+    Administrador --> CadastarVistoriante
+
+    usecase MudarSenhaAdmnistrador as "Mudar Senha Do Administrador"
+    Administrador --> MudarSenhaAdmnistrador
+
+}
+
+@enduml
