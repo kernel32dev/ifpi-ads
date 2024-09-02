@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api.agify.io</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const output = document.getElementById("output");
+            document.getElementById("input").addEventListener("keydown", function(ev) {
+                if (ev.key == "Enter") {
+                    fetch("https://api.agify.io/?country_id=BR&name=" + this.value).then(x => x.json()).then(x => output.innerText = `${x.age} Anos`)
+                }
+            });
+        })
+    </script>
+</head>
+<body>
+    <input id="input" type="text" placeholder="digite um nome e aperte enter">
+    <br>
+    <span id="output"></span>
+</body>
+</html>

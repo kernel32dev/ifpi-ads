@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>api.imgflip.com</title>
+    <script>
+        const meme_url = fetch("https://api.imgflip.com/get_memes").then(x => x.json()).then(json => {
+            return json.data.memes[Math.floor(Math.random() * json.data.memes.length)].url;
+        });
+        document.addEventListener("DOMContentLoaded", async () => {
+            document.getElementById("meme").src = await meme_url;
+        });
+    </script>
+</head>
+<body>
+    <img id="meme" src="" alt="carregando...">
+</body>
+</html>

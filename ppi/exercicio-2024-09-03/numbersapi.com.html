@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>numbersapi.com</title>
+    <script>
+        let next = 0;
+        function loadNext() {
+            const num = next++;
+            const p = document.createElement("p");
+            p.innerText = num + "...";
+            fetch("http://numbersapi.com/" + num).then(x => x.text()).then(x => p.innerText = x);
+            document.body.insertAdjacentElement("beforeend", p);
+        }
+    </script>
+</head>
+<body>
+    <button onclick="loadNext(this)">Próximo</button>
+</body>
+</html>
