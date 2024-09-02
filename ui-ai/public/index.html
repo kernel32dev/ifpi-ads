@@ -11,14 +11,44 @@
 </head>
 
 <body>
-    <div id="main">
-        <div id="output" class="markdown">
-            <div id="welcome">Gemini</div>
-        </div>
-        <div id="input">
-            <div id="input_bar">
-                <div id="input_box" autofocus contenteditable="true"></div>
+    <div id="output" class="markdown">
+        <div id="welcome">
+            Gemini
+            <br>
+            <br>
+            Escolha o seu modelo:
+            <br>
+            <div style="width: max-content; display: inline-block;">
+                <input type="radio" name="context_choice" id="model_default" checked>
+                <label for="model_default">Gemini</label>
+                <br>
+                <input type="radio" name="context_choice" id="model_teacher">
+                <label for="model_teacher">Professor</label>
+                <br>
+                <input type="radio" name="context_choice" id="model_defcon">
+                <label for="model_defcon">Guia sobre o DEFCON</label>
+                <br>
             </div>
+        </div>
+    </div>
+    <div id="input">
+        <div id="input_bar">
+            <div id="input_file">
+                <svg fill="currentColor" height="1.2em" width="1.2em" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                    viewBox="0 0 512 512" xml:space="preserve">
+                <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                <g>
+                    <g>
+                        <path d="M359.784,103.784v262.919c0,57.226-46.557,103.784-103.784,103.784s-103.784-46.557-103.784-103.784V103.784
+                            c0-34.336,27.934-62.27,62.27-62.27c34.336,0,62.27,27.934,62.27,62.27v262.919c0,11.445-9.312,20.757-20.757,20.757
+                            s-20.757-9.311-20.757-20.757V103.784H193.73v262.919c0,34.336,27.934,62.27,62.27,62.27s62.27-27.934,62.27-62.27V103.784
+                            C318.27,46.557,271.713,0,214.487,0S110.703,46.557,110.703,103.784v262.919C110.703,446.82,175.883,512,256,512
+                            s145.297-65.18,145.297-145.297V103.784H359.784z"/>
+                    </g>
+                </g>
+                </svg>
+            </div>
+            <div id="input_box" autofocus contenteditable="true"></div>
         </div>
     </div>
 </body>

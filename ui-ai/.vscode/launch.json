@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug ui-ai",
+            "runtimeExecutable": "node",
+            "runtimeArgs": [
+                "--inspect",
+                "--env-file=.env",
+                "-r",
+                "sucrase/register"
+            ],
+            "args": [
+                "${workspaceFolder}/src/main.ts"
+            ],
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/dist/**/*.js"
+            ],
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}

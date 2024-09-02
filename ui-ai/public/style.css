@@ -12,21 +12,14 @@ body {
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #1e1e1e;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
     overflow-x: hidden;
-}
-#main {
-    margin: 0 10%;
-    max-width: 700px;
     flex: 1 1;
     height: 100vh;
     display: flex;
     flex-direction: column;
 }
 #output {
-    max-width: 100%;
+    margin: 0 10%;
     flex: 1 1;
     display: flex;
     flex-direction: column;
@@ -40,26 +33,54 @@ body {
     border-radius: 0.5em;
     padding: 0.5em 1em;
 }
+#output .user_image {
+    max-width: 300px;
+}
+#output .user_file {
+    max-width: 80%;
+    width: max-content;
+    background-color: #505050;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    display: inline-block;
+    overflow: hidden;
+}
 #welcome {
     text-align: center;
 }
 #input {
-    padding: 0 50%;
-    margin: 0 -50%;
     position: sticky;
     box-shadow: #1e1e1e 0px 0px 10px 10px;
     background-color: #1e1e1e;
     bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 #input_bar {
+    max-width: 700px;
+    width: 60%;
     background-color: #2d2d2d;
     border-radius: 1em;
     padding: 1em;
-    margin: 1em 2em ;
+    margin: 1em 2em;
     max-height: 5lh;
     overflow-y: auto;
+    position: relative;
+}
+#input_file {
+    position: absolute;
+    left: 1em;
+    bottom: 0.9em;
+    width: 2em;
+    cursor: pointer;
+}
+#input_file.disabled {
+    opacity: 0.5;
+    pointer-events: none;
 }
 #input_box {
+    margin-left: 2em;
     outline: none;
 }
 #input_box[contenteditable="true"]:empty::after {

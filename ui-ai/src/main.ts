@@ -11,13 +11,20 @@ const app = express();
 
 app.use(express.static("public"))
 
-app.use(express.json());
+app.use(express.json({
+    limit: Infinity
+}));
 
 app.post("/api/chat", async (req, res) => {
-    if (!req.body || typeof req.body != "object" || !req.body["conversation"] || typeof req.body["conversation"] != "object") {
+    if (
+        !req.body || typeof req.body != "object"
+        || !req.body["conversation"] || typeof req.body["conversation"] != "object"
+        || typeof req.body["systemInstruction"] != "string"
+    ) {
         res.status(400).send();
         return;
     }
+    const systemInstruction = req.body.systemInstruction;
     const conversation = req.body.conversation;
     if (
         !Array.isArray(conversation)
@@ -27,7 +34,7 @@ app.post("/api/chat", async (req, res) => {
         res.status(400).send();
         return;
     }
-    const markdown = await gemini(conversation);
+    const markdown = await gemini(systemInstruction, conversation);
     const html = converter.makeHtml(markdown);
     res.send({ markdown, html });
 });
